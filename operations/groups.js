@@ -18,19 +18,16 @@ class Groups {
             childs_in_group: []
         }
     }
-
     async create_group(data){
         // data format
         // {name: 'string', description: 'string'}
         await new DataBase('groups').add(data);
     }
-
     async edit_group(data){
         // data format
         // {id: 'int', name: 'string', description: 'string'}
         await new DataBase('groups').edit(data);
     }
-
     async delete_group(data){
         let update_data = {
             id: data.id,

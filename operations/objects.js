@@ -17,7 +17,7 @@ class Programs {
     }
     async create_object(data){
         // data format
-        // {name: 'string', description: 'string'}
+        // {name: 'string', description: 'string', program_id: 'int'}
         await new DataBase('objects').add(data);
     }
     async edit_object(data){
