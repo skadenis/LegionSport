@@ -66,3 +66,5 @@ class SystemUsers {
         };
     }
 }
+
+module.exports = SystemUsers;
