@@ -2,6 +2,10 @@
 let DataBase = require('../components/database/index');
 let rights = require('./rights');
 
+let config = require('../components/config/index');
+let JWT = require('jsonwebtoken');
+
+
 class SystemUsers {
     constructor(){
 
@@ -30,7 +34,21 @@ class SystemUsers {
                 delete user.password;
                 user.rights = await rights(user.id);
 
-                return_data = {status: 200, info: user};
+
+                JWT.encode({
+                    secret: config.jwt.secretKey,
+                    algorithm: config.jwt.algorithm,
+                    expires: config.jwt.expires, //in minutes(two days)
+                    payload: user
+                }).exec({
+                    error: function (err) {
+                        console.log(err);
+                    },
+                    success: function (token) {
+                        return_data = {status: 200, info: user, token: token};
+                    }
+                });
+
             }else{
                 return_data = {status: 401, description: 'have error in password'}
             }

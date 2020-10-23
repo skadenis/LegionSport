@@ -14,9 +14,9 @@ module.exports = {
         alphaname_id: 1173
     },
     jwt:{
-        secretKey: '',
-        algorithm: '',
-        expires: '', //in minutes(two days)
+        secretKey: "ILI3FpV5s$B2JnHqNqVYWg1OHN5~SbUj",
+        algorithm: 'HS256',
+        expires: 2880, //in minutes(two days)
         schema: ''
     },
 };
