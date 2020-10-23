@@ -14,6 +14,7 @@
     "http-errors": "~1.6.3",
     "json-gate": "^0.8.23",
     "jsonwebtoken": "^8.5.1",
+    "machinepack-jwt": "^0.1.14",
     "morgan": "~1.9.1",
     "pg": "^8.0.3",
     "pg-format": "^1.0.4",

@@ -3,7 +3,7 @@ let DataBase = require('../components/database/index');
 let rights = require('./rights');
 
 let config = require('../components/config/index');
-let JWT = require('jsonwebtoken');
+const JWT = require('machinepack-jwt');
 
 
 class SystemUsers {
