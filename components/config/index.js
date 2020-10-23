@@ -1,9 +1,9 @@
 module.exports = {
     database:{
-        user:  'legion',
+        user:  'root',
         host: 'localhost',
         database: 'legion',
-        password: 'Tutanu2211ghghgjnxoq',
+        password: 'Tutanu2211',
         port: 5432,
         max: '',
     },
