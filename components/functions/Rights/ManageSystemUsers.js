@@ -2,7 +2,7 @@
 let AccessRights = require('../../Users/AccessRights');
 
 module.exports = async function CheckRights(req, res,next) {
-    switch (await new AccessRights(req.token).CheckRights('manage_restaurants')) {
+    switch (await new AccessRights(req.token).CheckRights('edit_system_users')) {
         case true:
             next();
             break;
