@@ -45,7 +45,7 @@ class SystemUsers {
                         console.log(err);
                     },
                     success: function (token) {
-                        return_data = {status: 200, info: user, token: token};
+                        return {status: 200, info: user, token: token};
                     }
                 });
 
