@@ -12,7 +12,7 @@ class AccessRights extends User{
     async CheckRights(ReqRights) {
 
         console.log(this.user_info);
-        return this.user_info[ReqRights];
+        return this.user_info.rights[ReqRights];
     }
 }
 
