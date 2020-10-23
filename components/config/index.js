@@ -1,10 +1,10 @@
 module.exports = {
     database:{
-        user:  '',
-        host: '',
-        database: '',
-        password: '',
-        port: '',
+        user:  'legion',
+        host: 'localhost',
+        database: 'legion',
+        password: 'Tutanu2211ghghgjnxoq',
+        port: 5432,
         max: '',
     },
     sms:{
