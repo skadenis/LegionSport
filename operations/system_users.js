@@ -3,7 +3,7 @@ let DataBase = require('../components/database/index');
 let rights = require('./rights');
 
 let config = require('../components/config/index');
-const JWT = require('machinepack-jwt');
+let jwt = require('jsonwebtoken');
 
 
 class SystemUsers {
@@ -34,20 +34,8 @@ class SystemUsers {
                 delete user.password;
                 user.rights = await rights(user.id);
 
-                JWT.encode({
-                    secret: config.jwt.secretKey,
-                    algorithm: config.jwt.algorithm,
-                    expires: config.jwt.expires, //in minutes(two days)
-                    payload: user
-                }).exec({
-                    error: function (err) {
-                        console.log(err);
-                    },
-                    success: function (token) {
-                        console.log(token);
-                        return_data = {status: 200, info: user, token: token};
-                    }
-                });
+                let token = jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
+                return_data = {status: 200, info: user, token: token};
 
             }else{
                 return_data = {status: 401, description: 'have error in password'}
