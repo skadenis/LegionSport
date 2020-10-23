@@ -35,6 +35,9 @@ class SystemUsers {
                 user.rights = await rights(user.id);
 
 
+                console.log(user);
+
+
                 JWT.encode({
                     secret: config.jwt.secretKey,
                     algorithm: config.jwt.algorithm,
@@ -45,6 +48,7 @@ class SystemUsers {
                         console.log(err);
                     },
                     success: function (token) {
+                        console.log(token);
                         return {status: 200, info: user, token: token};
                     }
                 });
