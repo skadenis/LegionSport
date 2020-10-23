@@ -12,5 +12,11 @@ module.exports = {
         url: '',
         code_length: '',
         alphaname_id: 1173
-    }
+    },
+    jwt:{
+        secretKey: '',
+        algorithm: '',
+        expires: '', //in minutes(two days)
+        schema: ''
+    },
 };
