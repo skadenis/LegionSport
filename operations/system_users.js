@@ -49,31 +49,69 @@ class SystemUsers {
     async create_system_user(data){
         // data format
         // {login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
-        return{
-            status: 200,
-            data: await new DataBase('system_users').add(data)
-        };
+        let system_users = await new DataBase('system_users').getBy('login',data.login);
+        if(system_users.length === 0){
+            let answ = await new DataBase('system_users').add(data)
+            return{
+                status: 200,
+                data: answ
+            };
+        }else{
+            return {
+                status: 400,
+                description: 'login is not free'
+            }
+        }
+
 
     }
     async edit_system_user(data){
         // data format
         // {id: 'int',login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
-        return{
-          status: 200,
-          data: await new DataBase('system_users').edit(data)
-        };
+        let system_user = await new DataBase('system_users').getBy('id', data.id);
+        if(system_user.length > 0) {
+            let system_user_logins = await new DataBase('system_users').getBy('login', data.login);
+
+            if (system_user_logins === 0){
+                return {
+                    status: 200,
+                    data: await new DataBase('system_users').edit(data)
+                };
+            } else {
+                return {
+                    status: 400,
+                    description: 'login is forbidden'
+                };
+            }
+
+        }else{
+            return {
+                status: 400,
+                description: 'There is no user with such id'
+            }
+        }
     }
     async delete_system_user(data){
 
-        let update_data = {
-            id: data.id,
-            is_deleted: true
-        };
+       let system_user = await new DataBase('system_users').getBy('id', data.id);
+       if(system_user.length > 0){
+           let update_data = {
+               id: data.id,
+               is_deleted: true
+           };
 
-        return{
-            status: 200,
-            data: await new DataBase('system_users').edit(update_data)
-        };
+           return{
+               status: 200,
+               data: await new DataBase('system_users').edit(update_data)
+           };
+       }else {
+           return{
+               status: 400,
+               description: 'no user with such id'
+           }
+       }
+
+
     }
 }
 
