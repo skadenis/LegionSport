@@ -34,7 +34,7 @@ class SystemUsers {
                 delete user.password;
                 user.rights = await rights(user.id);
 
-                let token = jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
+                let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
                 return_data = {status: 200, info: user, token: token};
 
             }else{
