@@ -34,7 +34,7 @@ class SystemUsers {
                 delete user.password;
                 user.rights = await rights(user.id);
 
-                return_data = JWT.encode({
+                JWT.encode({
                     secret: config.jwt.secretKey,
                     algorithm: config.jwt.algorithm,
                     expires: config.jwt.expires, //in minutes(two days)
