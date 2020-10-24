@@ -258,4 +258,48 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
+
+    static async add_to_group(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                group_id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async representatives_by_child_id(){
+        return {
+            type: 'object',
+            properties: {
+                child_id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async representatives_add(){}
+    static async representatives_edit(){}
+    static async representatives_delete(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+
 };

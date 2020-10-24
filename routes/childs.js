@@ -13,22 +13,50 @@ const WatchChilds = require('../components/functions/Rights/WatchChilds');
 
 let childs = require('../operations/childs');
 let payments = require('../operations/cash_transfer');
+let groups = require('../operations/groups');
+
+let representativesRouter = require('./representatives');
+router.use('/representatives', representativesRouter);
 
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
     let data = await new childs().get_all_childs();
     res.json(data);
 });
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
     let data = await new childs().get_child_info({id: req.params.id});
     res.json(data);
 });
+router.get('/:id/payments', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
+    let data = await new payments().get_child_payments({id: req.params.id});
+    res.json(data);
+});
+router.get('/:id/groups', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
+    let data = await new groups().get_child_groups({id: req.params.id});
+    res.json(data);
+});
+router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+
+    switch (await new Schema(await RequestFormat.add_to_group()).validate(req.body)) {
+        case true:
+            let data = await new groups().child_add_to_group(req.body);
+            res.json(data);
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
+
+
+
+});
+
+
 router.post('/all_child_in_program', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_program()).validate(req.body)) {
         case true:
@@ -49,8 +77,6 @@ router.post('/all_child_in_program', Policy(), verifyToken, CheckAuthorization, 
 
 });
 router.post('/all_child_in_object', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_obj()).validate(req.body)) {
         case true:
@@ -71,8 +97,6 @@ router.post('/all_child_in_object', Policy(), verifyToken, CheckAuthorization, W
 
 });
 router.post('/all_child_in_group', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_group()).validate(req.body)) {
         case true:
@@ -93,8 +117,6 @@ router.post('/all_child_in_group', Policy(), verifyToken, CheckAuthorization, Wa
 
 });
 router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
     switch (await new Schema(await RequestFormat.add_child()).validate(req.body)) {
         case true:
@@ -115,8 +137,6 @@ router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 
 });
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
     switch (await new Schema(await RequestFormat.edit_child()).validate(req.body)) {
         case true:
             let data = await new childs().edit_child(req.body);
@@ -134,9 +154,6 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 
 });
 router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-
     switch (await new Schema(await RequestFormat.delete_child()).validate(req.body)) {
         case true:
             let data = await new childs().delete_child(req.body);
@@ -154,9 +171,6 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 
 });
 router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-
     switch (await new Schema(await RequestFormat.payments_child()).validate(req.body)) {
         case true:
             let data = await new childs().get_child_info(req.body);
@@ -180,9 +194,6 @@ router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights
 
 });
 router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
             let data = await new childs().get_child_info(req.body);
@@ -205,6 +216,5 @@ router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRig
     }
 
 });
-
 
 module.exports = router;

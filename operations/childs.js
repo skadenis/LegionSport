@@ -10,10 +10,10 @@ module.exports = class childs {
         return await new DataBase('childs').getBy('is_deleted', false);
     }
     async get_all_childs_on_obj(data){
-        return await new DataBase('childs').query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id WHERE groups.object_id = $1 and childs.is_deleted = $2', [data.object, false]);
+        return await new DataBase('childs').DB_query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id WHERE groups.object_id = $1 and childs.is_deleted = $2', [data.object, false]);
     }
     async get_all_childs_on_group(data){
-        return await new DataBase('childs').query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
+        return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
     }
     async get_child_info(data){
         return {
@@ -22,7 +22,7 @@ module.exports = class childs {
         }
     }
     async get_all_childs_on_program(data){
-        return await new DataBase('childs').query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id JOIN objects ON groups.object_id = objects.id WHERE objects.program_id = $1 and childs.is_deleted = $2', [data.program, false]);
+        return await new DataBase('childs').DB_query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id JOIN objects ON groups.object_id = objects.id WHERE objects.program_id = $1 and childs.is_deleted = $2', [data.program, false]);
     }
     async create_child(data){
         // data format
