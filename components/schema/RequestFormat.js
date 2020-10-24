@@ -30,7 +30,7 @@ module.exports = class RequestFormat {
                     required: true
                 },
                 rights:{
-                    type: 'string',
+                    type: 'number',
                     required: true
                 },
                 name: {
@@ -71,7 +71,7 @@ module.exports = class RequestFormat {
                     required: false
                 },
                 rights:{
-                    type: 'string',
+                    type: 'number',
                     required: false
                 },
                 name: {
