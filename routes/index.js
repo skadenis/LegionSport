@@ -12,7 +12,7 @@ const ManageRights = require('../components/functions/Rights/ManageSystemUsers')
 
 let system = require('../operations/system_users');
 
-router.post('/auth', Policy, async function(req, res, next) {
+router.post('/auth', Policy(), async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
     console.log(await RequestFormat.auth());
@@ -35,19 +35,19 @@ router.post('/auth', Policy, async function(req, res, next) {
 
 
 });
-router.get('/all', Policy, verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.get('/all', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
     let data = await new system().get_all_users();
     res.json(data);
 });
-router.get('/:id', Policy, verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.get('/:id', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
     let data = await new system().get_user_info({id: req.params.id});
     res.json(data);
 });
-router.post('/create', Policy, verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
@@ -69,7 +69,7 @@ router.post('/create', Policy, verifyToken, CheckAuthorization, ManageRights, as
 
 
 });
-router.post('/edit', Policy, verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
     switch (await new Schema(await RequestFormat.edit_system_user()).validate(req.body)) {
@@ -88,7 +88,7 @@ router.post('/edit', Policy, verifyToken, CheckAuthorization, ManageRights, asyn
     }
 
 });
-router.post('/delete', Policy, verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
 
