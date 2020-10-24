@@ -226,4 +226,36 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
+    static async payments_child(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async add_payment(){
+        return {
+            type: 'object',
+            properties: {
+                child_id: {
+                    type: 'number',
+                    required: true
+                },
+                sum: {
+                    type: 'number',
+                    required: true
+                },
+                description: {
+                    type: 'number',
+                    required: true
+                },
+            },
+            additionalProperties: false
+        };
+    }
 };

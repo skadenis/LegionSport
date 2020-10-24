@@ -28,6 +28,11 @@ module.exports = class childs {
         // data format
         // {name: 'string', description: 'string'}
         let newChild = await new DataBase('childs').add(data);
+        await new DataBase('child_has_login_info').add({
+            id: newChild.id,
+            login: newChild.id,
+            password: 12312
+        });
 
         await new cash_transfer().create_enterence_payment({id: newChild.id});
 

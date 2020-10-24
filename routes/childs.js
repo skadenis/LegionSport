@@ -12,6 +12,7 @@ const ManageRights = require('../components/functions/Rights/ManageChilds');
 const WatchChilds = require('../components/functions/Rights/WatchChilds');
 
 let childs = require('../operations/childs');
+let payments = require('../operations/cash_transfer');
 
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
@@ -152,5 +153,58 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
     }
 
 });
+router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    // Обязательно надо после настроить SchemaJS
+    // Обязательно настроить для учетных записей параоль перевод в хеш md5
+
+    switch (await new Schema(await RequestFormat.payments_child()).validate(req.body)) {
+        case true:
+            let data = await new childs().get_child_info(req.body);
+            if (data.status === 200){
+                await new payments().get_child_payments(req.body)
+                res.json();
+            }else {
+                res.json({status:404});
+            }
+
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
+
+});
+router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    // Обязательно надо после настроить SchemaJS
+    // Обязательно настроить для учетных записей параоль перевод в хеш md5
+
+    switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
+        case true:
+            let data = await new childs().get_child_info(req.body);
+            if (data.status === 200){
+                await new payments().create_cash_transfer(req.body);
+                res.json({status:200});
+            } else {
+                res.json({status: 404});
+            }
+
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
+
+});
+
 
 module.exports = router;
