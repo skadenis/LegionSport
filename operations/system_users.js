@@ -74,7 +74,7 @@ class SystemUsers {
         if(system_user.length > 0) {
             let system_user_logins = await new DataBase('system_users').getBy('login', data.login);
 
-            if (system_user_logins === 0){
+            if (system_user_logins.length === 0){
                 return {
                     status: 200,
                     data: await new DataBase('system_users').edit(data)
