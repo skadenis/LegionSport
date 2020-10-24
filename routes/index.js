@@ -15,7 +15,7 @@ let system = require('../operations/system_users');
 router.post('/auth', Policy, async function(req, res, next) {
     // Обязательно надо после настроить SchemaJS
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    console.log(await new Schema(await RequestFormat.auth()).validate(req.body));
+    console.log(await RequestFormat.auth());
 
     switch (await new Schema(await RequestFormat.auth()).validate(req.body)) {
         case true:
