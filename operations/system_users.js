@@ -12,12 +12,14 @@ class SystemUsers {
     }
 
     async get_all_users(){
-        return await new DataBase('system_users').getBy('is_deleted', false);
+        return await new DataBase('system_users').getBy('is_deleted', false,['id','name','surname','lastname','login','email','rights']);
     }
     async get_user_info(data){
+        let answ = await new DataBase('system_users').getById(data.id);
+        delete answ.password;
         return {
             status: 200,
-            data: await new DataBase('system_users').getById(data.id)
+            data: answ
         }
     }
     async auth(data){
