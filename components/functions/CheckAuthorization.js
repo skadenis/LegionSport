@@ -9,11 +9,11 @@ module.exports = async function CheckAuthorization(req, res, next) {
             break;
         case false:
             res.status(401);
-            res.json({error:"Authorization Required"});
+            res.json({status: 401 ,error:"Authorization Required"});
             break;
         default:
             res.status(500);
-            res.json({error:"Server Error"});
+            res.json({status: 500 ,error:"Server Error"});
             break;
     }
 };
