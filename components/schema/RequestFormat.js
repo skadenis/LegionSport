@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = class RequestFormat {
+    // Все что связано с компонентом системные учетки
     static async auth(){
         return {
             type: 'object',
@@ -96,6 +97,124 @@ module.exports = class RequestFormat {
         };
     }
     static async delete_system_user(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+
+    // Все что связано с компоненотом ДЕТИ
+    static async get_all_childs_on_obj(){
+        return {
+            type: 'object',
+            properties: {
+                object: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async get_all_childs_on_group(){
+        return {
+            type: 'object',
+            properties: {
+                group: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async get_all_childs_on_program(){
+        return {
+            type: 'object',
+            properties: {
+                program: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+    static async add_child(){
+        return {
+            type: 'object',
+            properties: {
+                name: {
+                    type: 'string',
+                    required: true
+                },
+                surname: {
+                    type: 'string',
+                    required: true
+                },
+                lastname: {
+                    type: 'string',
+                    required: true
+                },
+                birthday: {
+                    type: 'date',
+                    required: true
+                },
+                is_boy:{
+                    type: 'boolean',
+                    required: true
+                },
+                description:{
+                    type: 'string',
+                    required: true
+                },
+            },
+            additionalProperties: false
+        };
+    }
+    static async edit_child(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                name: {
+                    type: 'string',
+                    required: true
+                },
+                surname: {
+                    type: 'string',
+                    required: true
+                },
+                lastname: {
+                    type: 'string',
+                    required: true
+                },
+                birthday: {
+                    type: 'date',
+                    required: true
+                },
+                is_boy:{
+                    type: 'boolean',
+                    required: true
+                },
+                description:{
+                    type: 'string',
+                    required: true
+                },
+            },
+            additionalProperties: false
+        };
+    }
+    static async delete_child(){
         return {
             type: 'object',
             properties: {

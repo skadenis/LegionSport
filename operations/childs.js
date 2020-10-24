@@ -2,7 +2,7 @@
 let DataBase = require('../components/database/index');
 let cash_transfer = require('./cash_transfer');
 
-class Groups {
+module.exports = class childs {
     constructor(){
     }
 
@@ -20,6 +20,9 @@ class Groups {
             status: 200,
             data: await new DataBase('objects').getById(data.id)
         }
+    }
+    async get_all_childs_on_program(data){
+        return await new DataBase('childs').query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id JOIN objects ON groups.object_id = objects.id WHERE objects.program_id = $1 and childs.is_deleted = $2', [data.program, false]);
     }
     async create_child(data){
         // data format
@@ -42,5 +45,4 @@ class Groups {
         };
         await new DataBase('childs').edit(update_data);
     }
-
 }
