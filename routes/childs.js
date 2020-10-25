@@ -35,7 +35,6 @@ router.get('/:id/groups', Policy(), verifyToken, CheckAuthorization, WatchChilds
     res.json(data);
 });
 router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-
     switch (await new Schema(await RequestFormat.add_to_group()).validate(req.body)) {
         case true:
             let data = await new groups().child_add_to_group(req.body);
@@ -54,8 +53,6 @@ router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRi
 
 
 });
-
-
 router.post('/all_child_in_program', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_program()).validate(req.body)) {
@@ -116,26 +113,25 @@ router.post('/all_child_in_group', Policy(), verifyToken, CheckAuthorization, Wa
 
 
 });
-router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-
-    switch (await new Schema(await RequestFormat.add_child()).validate(req.body)) {
-        case true:
-            let data = await childs.create_child(req.body);
-            res.json(data);
-            break;
-        case false:
-            res.status(500);
-            res.json({error:"Server error"});
-            break;
-        default:
-            res.status(400);
-            res.json({error:"Unexpected data format"});
-            break;
-    }
-
-
-
-});
+// router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+//     switch (await new Schema(await RequestFormat.add_child()).validate(req.body)) {
+//         case true:
+//             let data = await childs.create_child(req.body);
+//             res.json(data);
+//             break;
+//         case false:
+//             res.status(500);
+//             res.json({error:"Server error"});
+//             break;
+//         default:
+//             res.status(400);
+//             res.json({error:"Unexpected data format"});
+//             break;
+//     }
+//
+//
+//
+// });
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.edit_child()).validate(req.body)) {
         case true:
@@ -178,35 +174,12 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
     }
 
 });
-router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    switch (await new Schema(await RequestFormat.payments_child()).validate(req.body)) {
-        case true:
-            let data = await childs.get_child_info(req.body);
-            if (data.status === 200){
-                await cash_transfer.get_child_payments(req.body)
-                res.json();
-            }else {
-                res.json({status:404});
-            }
-
-            break;
-        case false:
-            res.status(500);
-            res.json({error:"Server error"});
-            break;
-        default:
-            res.status(400);
-            res.json({error:"Unexpected data format"});
-            break;
-    }
-
-});
 router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
             let data = await childs.get_child_info(req.body);
             if (data.status === 200){
-                await new payments().create_cash_transfer(req.body);
+                await new cash_transfer.create_cash_transfer(req.body);
                 res.json({status:200});
             } else {
                 res.json({status: 404});

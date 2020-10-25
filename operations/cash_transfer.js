@@ -28,12 +28,31 @@ module.exports = class cash_transfer{
          }
          return r_data;
     }
-    async create_cash_transfer(data){
-            // data format
-            // {child_id: 'int', sum: 'numeric', description: 'string'}
+    static async create_cash_transfer(data){
+        // data format
+        // {child_id: 'int', sum: 'numeric', description: 'string'}
 
-            await new DataBase('cash_transfer').add(data);
-            // Калькулируем данные в cash_transfer и обновляем данные в child info
+        // Калькулируем данные в cash_transfer и обновляем данные в child info
+
+        let OperationWithChilds = require('../operations/childs');
+        let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
+        let r_data;
+
+        switch (info_child.status) {
+            case 200:
+                await new DataBase('cash_transfer').add(data);
+                await OperationWithChilds.edit_child({
+                    id: data.child_id,
+                    wallet: info_child.wallet + data.sum
+                });
+                r_data = {status: 200, await OperationWithChilds.get_child_info({id: data.child_id})};
+                break;
+
+            default:
+                r_data = {status: 404};
+                break;
         }
+
+    }
 
 };
