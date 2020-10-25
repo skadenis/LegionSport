@@ -1,6 +1,5 @@
 'use strict';
 let DataBase = require('../components/database/index');
-
 let OperationWithChilds = require('./childs');
 
 module.exports = class cash_transfer{
@@ -15,9 +14,9 @@ module.exports = class cash_transfer{
         //     description: 'Списание за вступительный взнос в Клуб'
         // });
     }
-    async get_child_payments(data){
-
-        return data;
+    static async get_child_payments(data){
+            let info_child = await OperationWithChilds.get_child_info(data);
+            return info_child;
         // return await OperationWithChilds.get_child_info({id: 2});
 
         // let r_data;
