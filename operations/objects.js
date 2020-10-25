@@ -22,11 +22,10 @@ class Objects {
     async get_info(data){
         let programsA = await new DataBase('objects').getBy('id', data.id);
         if(programsA.length > 0){
-            let groups = await new DataBase('groups').getBy('object_id', data.id);
+            programsA[0].groups = await new DataBase('groups').getBy('object_id', data.id);
             return {
                 status: 200,
                 data: programsA[0],
-                groups
             }
         }else {
             return {
@@ -35,17 +34,13 @@ class Objects {
         }
     }
     static async create(data){
-        // data format
-        // {login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
         return{
             status: 200,
             data: await new DataBase('objects').add(data)
         };
     }
     async edit(data){
-        // data format
-        // {id: 'int',login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
-        let prog_info = await this.get_user_info(data);
+        let prog_info = await this.get_info(data);
         let r_data;
 
         switch (prog_info.status) {
