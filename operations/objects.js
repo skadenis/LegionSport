@@ -34,10 +34,10 @@ class Objects {
         }
     }
     async create(data){
-        let data = await new DataBase('objects').add(data);
+        let Sdata = await new DataBase('objects').add(data);
         return{
             status: 200,
-            data: (await this.get_info({id:data.id})).data
+            data: (await this.get_info({id:Sdata.id})).data
         };
     }
     async edit(data){
