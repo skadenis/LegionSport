@@ -1,6 +1,5 @@
 'use strict';
 let User = require('./Users');
-let DataBase = require('../database/index');
 
 const config = require('../config/index');
 const jwt = require('jsonwebtoken');
