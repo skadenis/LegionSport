@@ -11,6 +11,12 @@ router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function
     let data = await objects.get_all();
     res.json(data);
 });
+
+router.post('/get-all-by-object', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    let data = await objects.get_all_by_program({object_id: req.body.object_id});
+    res.json(data);
+});
+
 router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await objects.get_info({id: req.params.id});
     res.json(data);
