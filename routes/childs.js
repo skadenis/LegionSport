@@ -33,6 +33,8 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
         data.data.groups = groups_child.groups;
     }
 
+    res.json(data).status(data.status);
+
 
 
 });
