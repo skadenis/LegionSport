@@ -33,10 +33,11 @@ class Objects {
             }
         }
     }
-    static async create(data){
+    async create(data){
+        let data = await new DataBase('objects').add(data);
         return{
             status: 200,
-            data: await new DataBase('objects').add(data)
+            data: (await this.get_info({id:data.id})).data
         };
     }
     async edit(data){
@@ -44,16 +45,12 @@ class Objects {
         let r_data;
         let id = prog_info.data.id;
 
-        console.log(prog_info);
-
         switch (prog_info.status) {
             case 200:
                 await new DataBase('objects').edit(data);
-                let answ = (await this.get_info({id}));
-                console.log(data);
                 r_data = {
                     status: 200,
-                    data: answ
+                    data: (await this.get_info({id})).data
                 };
                 break;
             default:

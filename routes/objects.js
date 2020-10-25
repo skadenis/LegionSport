@@ -25,7 +25,7 @@ router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function
 router.post('/edit', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data;
     if(req.body.id === 0){
-        data = await objects.create(req.body);
+        data = await new objects().create(req.body);
     } else {
         data = await new objects().edit(req.body);
     }
