@@ -7,7 +7,7 @@ module.exports = class groups {
     constructor(){
     }
 
-    static async get_child_groups(data){
+    async get_child_groups(data){
         let OperationWithChilds = require('../operations/childs');
         let info_child = await OperationWithChilds.get_child_info(data);
         let r_data;
