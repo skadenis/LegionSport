@@ -45,7 +45,7 @@ module.exports = class cash_transfer{
                     id: data.child_id,
                     wallet: info_child.wallet + data.sum
                 });
-                r_data = {status: 200, await OperationWithChilds.get_child_info({id: data.child_id})};
+                r_data = {status: 200,data: await OperationWithChilds.get_child_info({id: data.child_id})};
                 break;
 
             default:
