@@ -10,7 +10,6 @@ class Programs {
         return await new DataBase('programs').getBy('is_deleted', false);
     }
     async get_program_info(data){
-console.log(data);
         let programsA = await new DataBase('programs').getBy('id', data.id);
         if(programsA.length > 0){
             programsA[0].objects = await this.programObjects(data);
@@ -46,7 +45,7 @@ console.log(data);
                 await new DataBase('programs').edit(data);
                 r_data = {
                     status: 200,
-                    data: await this.get_program_info({id: prog_info.data.id})
+                    data: (await this.get_program_info({id: prog_info.data.id})).data
                 };
                 break;
             default:
