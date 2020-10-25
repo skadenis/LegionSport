@@ -34,7 +34,7 @@ console.log(Users);
             let user = Users[0]; // Пользователь с одним логином может быть всего один
             if(data.password === user.password){
                 delete user.password;
-                user.rights = await rights(user.id);
+                user.rights = await rights(user.rights);
 
                 let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
                 return_data = {status: 200, info: user, token: token};
