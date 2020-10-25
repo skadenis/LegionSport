@@ -13,15 +13,20 @@ class Programs {
 
         let programsA = await new DataBase('programs').getBy('id', data.id);
         if(programsA.length > 0){
+            let objects = await this.programObjects(data);
             return {
                 status: 200,
-                data: programsA[0]
+                data: programsA[0],
+                objects
             }
         }else {
             return {
                 status: 404
             }
         }
+    }
+    async programObjects(data){
+        return await new DataBase('objects').getBy('program_id', data.id);
     }
     static async create_program(data){
         // data format
