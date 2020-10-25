@@ -157,7 +157,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 switch (data.status) {
                     case 200:
 
-                        let data_info = await childs.get_child_info({id: req.params.id});
+                        let data_info = await childs.get_child_info({id: req.body.id});
                         if(data_info.status === 200){
 
                             let payments = await cash_transfer.get_child_payments({id: req.body.id});
