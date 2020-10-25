@@ -52,8 +52,11 @@ class SystemUsers {
         // data format
         // {login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
         let system_users = await new DataBase('system_users').getBy('login',data.login);
+
+        console.log(data);
+
         if(system_users.length === 0){
-            let answ = await new DataBase('system_users').add(data)
+            let answ = await new DataBase('system_users').add(data);
             return{
                 status: 200,
                 data: answ

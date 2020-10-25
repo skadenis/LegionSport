@@ -76,6 +76,8 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
         case true:
             if(req.body.id === 0){
                 delete req.body.id;
+
+
                 let data = await new system().create_system_user(req.body);
                 res.json(data);
             }else {
