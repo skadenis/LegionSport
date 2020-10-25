@@ -37,10 +37,7 @@ module.exports = class cash_transfer{
         let OperationWithChilds = require('../operations/childs');
         let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
 
-        console.log(data);
         let r_data;
-
-        console.log(info_child);
 
         switch (info_child.status) {
             case 200:
@@ -56,6 +53,8 @@ module.exports = class cash_transfer{
                 r_data = {status: 404};
                 break;
         }
+
+        return r_data;
 
     }
 
