@@ -36,7 +36,9 @@ module.exports = class childs {
     static async create_child(data){
         // data format
         // {name: 'string', description: 'string'}
+        console.log(data);
         let newChild = await new DataBase('childs').add(data);
+        console.log(newChild);
         await new DataBase('child_has_login_info').add({
             id: newChild.id,
             login: newChild.id,
