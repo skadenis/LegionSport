@@ -7,10 +7,16 @@ class Objects {
     }
 
     static async get_all(){
-        return await new DataBase('objects').getBy('is_deleted', false);
+        return {
+            status:200,
+            data: await new DataBase('objects').getBy('is_deleted', false)
+        };
     }
     static async get_all_by_program(data){
-        return await new DataBase('objects').DB_query('SELECT * FROM objects JOIN programs ON programs.id = objects.programs_id WHERE is_deleted = $1 and objects.id = $2', [false,data.object_id]);
+        return {
+            status:200,
+            data: await new DataBase('objects').DB_query('SELECT objects.* FROM objects JOIN programs ON programs.id = objects.programs_id WHERE is_deleted = $1 and programs.id = $2', [false,data.program_id])
+        }
     }
 
     async get_info(data){
