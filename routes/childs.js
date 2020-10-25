@@ -24,7 +24,16 @@ router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
 });
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await childs.get_child_info({id: req.params.id});
-    res.json(data);
+    if(data.status === 200){
+        let payments = await cash_transfer.get_child_payments({id: req.params.id});
+        let groups = await new groups().get_child_groups({id: req.params.id});
+
+        data.data.payments = payments.data;
+        data.data.groups = groups.groups;
+    }
+
+
+
 });
 router.get('/:id/payments', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await cash_transfer.get_child_payments({id: req.params.id});
