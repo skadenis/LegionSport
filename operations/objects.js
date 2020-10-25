@@ -15,7 +15,7 @@ class Objects {
     static async get_all_by_program(data){
         return {
             status:200,
-            data: await new DataBase('objects').DB_query('SELECT objects.* FROM objects JOIN programs ON programs.id = objects.program_id WHERE objects.id = $1 and programs.id = $2', [false,data.program_id])
+            data: await new DataBase('objects').DB_query('SELECT objects.* FROM objects JOIN programs ON programs.id = objects.program_id WHERE objects.id_deleted = $1 and programs.id = $2', [false,data.program_id])
         }
     }
 
