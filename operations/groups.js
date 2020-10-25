@@ -1,28 +1,32 @@
 'use strict';
 let DataBase = require('../components/database/index');
 
+
+
 module.exports = class Groups {
     constructor(){
     }
 
     async get_child_groups(data){
-        let users = await new DataBase('childs').getBy('id', data.id);
-        if(users.length > 0){
-            let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id', [data.id]);
+        let OperationWithChilds = require('../operations/childs');
+        let info_child = await OperationWithChilds.get_child_info(data);
+        let r_data;
+        switch (info_child.status) {
+            case 200:
+                let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
-            return {
-                status: 200,
-                groups
-            }
-
-
-        }else {
-            return {
-                status: 404,
-                description: 'no child with such id'
-            }
+                r_data = {
+                    status: 200,
+                    groups: groups
+                };
+                break;
+            default:
+                r_data = {
+                    status: 404,
+                    description: 'no child with such id'
+                };
+                break;
         }
-
     }
     async child_add_to_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
