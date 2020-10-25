@@ -3,9 +3,11 @@ let DataBase = require('../components/database/index');
 
 let OperationWithChilds = require('./childs');
 
-module.exports = class cash_transfer {
+module.exports = class cash_transfer extends OperationWithChilds{
     constructor(){
+        super();
     }
+
     async create_enterence_payment(data){
         // let enterence_sum = 19.90;
         // await this.create_cash_transfer({
@@ -16,7 +18,7 @@ module.exports = class cash_transfer {
     }
     async get_child_payments(data){
 
-        return await new OperationWithChilds.get_child_info({id: 2});
+        return await OperationWithChilds.get_child_info({id: 2});
 
         // let r_data;
         //  switch (info.status) {
