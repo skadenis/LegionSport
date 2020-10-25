@@ -16,6 +16,7 @@ module.exports = class childs {
         return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
     }
     async get_child_info(data){
+        console.log(data);
         let childs = await new DataBase('childs').getBy('id', data.id);
         if(childs.length > 0){
             return {

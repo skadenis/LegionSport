@@ -27,7 +27,7 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
     res.json(data);
 });
 router.get('/:id/payments', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    let data = await new payments().get_child_payments({id: req.params.id});
+    let data = await cash_transfer.get_child_payments({id: req.params.id});
     res.json(data);
 });
 router.get('/:id/groups', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
@@ -183,7 +183,7 @@ router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights
         case true:
             let data = await new childs().get_child_info(req.body);
             if (data.status === 200){
-                await new payments().get_child_payments(req.body)
+                await cash_transfer.get_child_payments(req.body)
                 res.json();
             }else {
                 res.json({status:404});
