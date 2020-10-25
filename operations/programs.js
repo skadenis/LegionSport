@@ -46,7 +46,7 @@ class Programs {
                 await new DataBase('programs').edit(data);
                 r_data = {
                     status: 200,
-                    data: await this.get_program_info(data)
+                    data: await this.get_program_info({id: data.id})
                 };
                 break;
             default:
