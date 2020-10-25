@@ -1,7 +1,7 @@
 'use strict';
 let DataBase = require('../components/database/index');
 
-let childs_module = require('./childs');
+let OperationWithChilds = require('./childs');
 
 module.exports = class cash_transfer {
     constructor(){
@@ -16,8 +16,7 @@ module.exports = class cash_transfer {
     }
     async get_child_payments(data){
 
-        let child = childs_module();
-        return await child.get_child_info({id: 2});
+        return await OperationWithChilds.get_child_info({id: 2});
 
         // let r_data;
         //  switch (info.status) {
