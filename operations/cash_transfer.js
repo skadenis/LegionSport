@@ -42,9 +42,10 @@ module.exports = class cash_transfer{
         switch (info_child.status) {
             case 200:
                 await new DataBase('cash_transfer').add(data);
+                let newWallet = (info_child.data.wallet + data.sum);
                 await OperationWithChilds.edit_child({
                     id: data.child_id,
-                    wallet: info_child.data.wallet + data.sum
+                    wallet: newWallet
                 });
                 r_data = {status: 200,data: (await OperationWithChilds.get_child_info({id: data.child_id})).data};
                 break;
