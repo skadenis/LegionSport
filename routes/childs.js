@@ -178,7 +178,7 @@ router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRig
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
 
-            await new cash_transfer.create_cash_transfer(req.body);
+            await cash_transfer.create_cash_transfer(req.body);
 
 
             break;
