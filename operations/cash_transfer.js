@@ -1,6 +1,6 @@
 'use strict';
 let DataBase = require('../components/database/index');
-let OperationWithChilds = require('./childs');
+let OperationWithChilds = require('../operations/childs');
 
 module.exports = class cash_transfer{
     constructor(){
