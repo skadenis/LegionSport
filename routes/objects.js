@@ -1,6 +1,7 @@
 let express = require('express');
 let router = express.Router();
 
+let Policy = require('cors');
 const verifyToken = require('../components/functions/Token');
 const CheckAuthorization = require('../components/functions/CheckAuthorization');
 const ManageRights = require('../components/functions/Rights/ManagePrograms');
@@ -12,17 +13,17 @@ router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function
     res.json(data);
 });
 
-router.post('/get-all-by-program', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/get-all-by-program', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await objects.get_all_by_program({program_id: req.body.program_id});
     res.json(data);
 });
 
-router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.get('/:id', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await new objects().get_info({id: req.params.id});
     res.json(data);
 });
 
-router.post('/edit', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data;
     if(req.body.id === 0){
         data = await new objects().create(req.body);
@@ -31,7 +32,7 @@ router.post('/edit', verifyToken, CheckAuthorization, ManageRights, async functi
     }
     res.json(data);
 });
-router.post('/delete', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await new objects().delete(req.body);
     res.json(data);
 });
