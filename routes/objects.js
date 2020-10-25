@@ -18,7 +18,7 @@ router.post('/get-all-by-object', verifyToken, CheckAuthorization, ManageRights,
 });
 
 router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    let data = await objects.get_info({id: req.params.id});
+    let data = await new objects().get_info({id: req.params.id});
     res.json(data);
 });
 
