@@ -12,7 +12,7 @@ const ManageRights = require('../components/functions/Rights/ManageChilds');
 const WatchChilds = require('../components/functions/Rights/WatchChilds');
 
 let childs = require('../operations/childs');
-let payments = require('../operations/cash_transfer');
+let cash_transfer = require('../operations/cash_transfer');
 let groups = require('../operations/groups');
 
 let representativesRouter = require('./representatives');
