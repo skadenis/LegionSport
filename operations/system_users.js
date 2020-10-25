@@ -28,7 +28,6 @@ class SystemUsers {
         let return_data = {};
         let Users = await new DataBase('system_users').getBy('login', data.login);
 
-console.log(Users);
         if(Users.length > 0){
             // Кодирование пароля
             let user = Users[0]; // Пользователь с одним логином может быть всего один
