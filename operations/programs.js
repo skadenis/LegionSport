@@ -24,7 +24,7 @@ class Programs {
         }
     }
     async programObjects(data){
-        return await new DataBase('objects').getBy('program_id', data.id);
+        return await new DataBase('objects').query('SELECT objects.* FROM objects WHERE program_id = $1 and is_deleted = $2', [data.id,false]);
     }
     static async create_program(data){
         // data format
