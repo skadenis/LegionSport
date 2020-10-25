@@ -8,7 +8,7 @@ const ManageRights = require('../components/functions/Rights/ManagePrograms');
 let programs = require('../operations/programs');
 
 router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    let data = await Programs.get_all_programs();
+    let data = await programs.get_all_programs();
     res.json(data);
 });
 router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
@@ -19,7 +19,7 @@ router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function
 router.post('/edit', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data;
     if(req.body.id === 0){
-        data = await Programs.create_program(req.body);
+        data = await programs.create_program(req.body);
     } else {
         data = await new programs().edit_program(req.body);
     }
