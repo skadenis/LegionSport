@@ -43,7 +43,7 @@ module.exports = class childs {
         });
 
         await new cash_transfer().create_enterence_payment({id: newChild.id});
-        return {status:200};
+        return {status:200, id:newChild.id};
         // Проведение транзакции Вступительный взнос //
     }
     static async edit_child(data){
