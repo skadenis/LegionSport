@@ -5,36 +5,28 @@ const verifyToken = require('../components/functions/Token');
 const CheckAuthorization = require('../components/functions/CheckAuthorization');
 const ManageRights = require('../components/functions/Rights/ManagePrograms');
 
-let system = require('../operations/system_users');
+let programs = require('../operations/programs');
 
 router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    let data = await new system().get_all_users();
+    let data = await new programs().get_all_programs();
     res.json(data);
 });
 router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    let data = await new system().get_user_info({id: req.params.id});
+    let data = await new programs().get_program_info({id: req.params.id});
     res.json(data);
 });
-router.post('/create', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    let data = await new system().create_system_user(req.body);
-    res.json(data);
-});
+
 router.post('/edit', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    let data = await new system().edit_system_user(req.body);
+    let data;
+    if(req.body.id === 0){
+        data = await new programs().create_program(req.body);
+    } else {
+        data = await new programs().edit_program(req.body);
+    }
     res.json(data);
 });
 router.post('/delete', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    // Обязательно надо после настроить SchemaJS
-    // Обязательно настроить для учетных записей параоль перевод в хеш md5
-    let data = await new system().delete_system_user(req.body);
+    let data = await new programs().delete_program(req.body);
     res.json(data);
 });
 
