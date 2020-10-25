@@ -153,7 +153,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 let data = await childs.create_child(req.body);
                 res.json(data);
             }else{
-                let id = req.body;
+                let id = req.body.id;
                 let data = await childs.edit_child(req.body);
                 switch (data.status) {
                     case 200:
