@@ -14,12 +14,11 @@ class childs {
         return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
     }
     static async get_child_info(data){
-        console.log(data);
-        let childs = await new DataBase('childs').getBy('id', data.id);
-        if(childs.length > 0){
+        let childsA = await new DataBase('childs').getBy('id', data.id);
+        if(childsA.length > 0){
             return {
                 status: 200,
-                data: childs[0]
+                data: childsA[0]
             }
         }else {
             return {
