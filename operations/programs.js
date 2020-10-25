@@ -34,7 +34,7 @@ class Programs {
     async edit_program(data){
         // data format
         // {id: 'int',login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
-        let prog_info = await this.get_user_info(data);
+        let prog_info = await this.get_program_info(data);
         let r_data;
 
         switch (prog_info.status) {
