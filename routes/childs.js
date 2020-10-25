@@ -156,7 +156,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 let data = await childs.edit_child(req.body);
                 switch (data.status) {
                     case 200:
-
+                        console.log({id: req.body.id});
                         let data_info = await childs.get_child_info({id: req.body.id});
                         if(data_info.status === 200){
 
