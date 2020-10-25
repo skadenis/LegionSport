@@ -16,7 +16,7 @@ module.exports = class cash_transfer {
     }
     async get_child_payments(data){
 
-        return await OperationWithChilds.get_child_info({id: 2});
+        return await new OperationWithChilds.get_child_info({id: 2});
 
         // let r_data;
         //  switch (info.status) {
