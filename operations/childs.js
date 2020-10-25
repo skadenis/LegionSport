@@ -3,8 +3,6 @@ let DataBase = require('../components/database/index');
 let cash_transfer = require('./cash_transfer');
 
 class childs {
-    constructor(){
-    }
 
     async get_all_childs(){
         return await new DataBase('childs').getBy('is_deleted', false);
@@ -15,7 +13,7 @@ class childs {
     async get_all_childs_on_group(data){
         return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
     }
-    async get_child_info(data){
+    static async get_child_info(data){
         console.log(data);
         let childs = await new DataBase('childs').getBy('id', data.id);
         if(childs.length > 0){

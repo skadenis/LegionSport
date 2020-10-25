@@ -23,7 +23,7 @@ router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
     res.json(data);
 });
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    let data = await new childs().get_child_info({id: req.params.id});
+    let data = await childs.get_child_info({id: req.params.id});
     res.json(data);
 });
 router.get('/:id/payments', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
@@ -181,7 +181,7 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.payments_child()).validate(req.body)) {
         case true:
-            let data = await new childs().get_child_info(req.body);
+            let data = await childs.get_child_info(req.body);
             if (data.status === 200){
                 await cash_transfer.get_child_payments(req.body)
                 res.json();
@@ -204,7 +204,7 @@ router.post('/payments', Policy(), verifyToken, CheckAuthorization, ManageRights
 router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
-            let data = await new childs().get_child_info(req.body);
+            let data = await childs.get_child_info(req.body);
             if (data.status === 200){
                 await new payments().create_cash_transfer(req.body);
                 res.json({status:200});
