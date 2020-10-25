@@ -36,6 +36,8 @@ module.exports = class cash_transfer{
 
         let OperationWithChilds = require('../operations/childs');
         let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
+
+        console.log(data);
         let r_data;
 
         console.log(info_child);
