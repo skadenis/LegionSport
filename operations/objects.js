@@ -42,12 +42,13 @@ class Objects {
     async edit(data){
         let prog_info = await this.get_info(data);
         let r_data;
-        let id = data.id;
+        let id = prog_info.data.id;
 
         switch (prog_info.status) {
             case 200:
                 await new DataBase('objects').edit(data);
-                let answ = (await this.get_info({id: id})).data;
+                let answ = (await this.get_info({id})).data;
+                console.log(data);
                 r_data = {
                     status: 200,
                     data: answ
