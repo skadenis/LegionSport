@@ -44,9 +44,9 @@ module.exports = class cash_transfer{
                 await new DataBase('cash_transfer').add(data);
                 await OperationWithChilds.edit_child({
                     id: data.child_id,
-                    wallet: info_child.wallet + data.sum
+                    wallet: info_child.data.wallet + data.sum
                 });
-                r_data = {status: 200,data: await OperationWithChilds.get_child_info({id: data.child_id})};
+                r_data = {status: 200,data: (await OperationWithChilds.get_child_info({id: data.child_id})).data};
                 break;
 
             default:
