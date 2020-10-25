@@ -36,21 +36,14 @@ module.exports = class childs {
     static async create_child(data){
         // data format
         // {name: 'string', description: 'string'}
-        console.log(data);
         let newChild = await new DataBase('childs').add(data);
-        console.log({
-            id: newChild.id,
-            login: newChild.id,
-            password: 12312
-        });
         await new DataBase('child_has_login_info').add({
-            id: newChild.id,
             login: newChild.id,
             password: 12312
         });
 
         await new cash_transfer().create_enterence_payment({id: newChild.id});
-
+        return {status:200};
         // Проведение транзакции Вступительный взнос //
     }
     static async edit_child(data){

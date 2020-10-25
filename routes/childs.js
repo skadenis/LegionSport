@@ -152,7 +152,26 @@ console.log(req.body.id);
                 console.log(req.body.id);
                 delete req.body.id;
                 let data = await childs.create_child(req.body);
-                res.json(data);
+                switch (data.status) {
+                    case 200:
+                        console.log({id: id});
+                        let data_info = await childs.get_child_info({id: id});
+                        if(data_info.status === 200){
+
+                            let payments = await cash_transfer.get_child_payments({id: id});
+                            let groups_child = await new groups().get_child_groups({id: id});
+
+                            data_info.data.payments = payments.data;
+                            data_info.data.groups = groups_child.groups;
+                        }
+
+                        res.json(data_info).status(data_info.status);
+
+                        break;
+                    default:
+                        res.json({status: 400});
+                        break
+                }
             }else{
                 let id = req.body.id;
                 let data = await childs.edit_child(req.body);
