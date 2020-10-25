@@ -22,7 +22,6 @@ class Authorization extends User{
     //
     async CheckAuthorization(token){
         try {
-            console.log(token);
             this.user_info = jwt.verify(token, config.jwt.secretKey);
         } catch(err) {
             this.error = err;
