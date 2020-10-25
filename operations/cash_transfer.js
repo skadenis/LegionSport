@@ -1,6 +1,8 @@
 'use strict';
 let DataBase = require('../components/database/index');
 
+let childs = require('./childs');
+
 module.exports = class cash_transfer {
     constructor(){
     }
@@ -13,7 +15,17 @@ module.exports = class cash_transfer {
         // });
     }
     async get_child_payments(data){
-         return await new DataBase('cash_transfer').getBy('child_id', data.id);
+        let info = await new childs().get_child_info({id:data.id});
+        let r_data;
+         switch (info.status) {
+             case 200:
+                 r_data = {status: 200, data:await new DataBase('cash_transfer').getBy('child_id', data.id)};
+                 break;
+             case 404:
+                 r_data = {status: 404, description: 'no child with such id'};
+                 break;
+         }
+         return r_data;
     }
     async create_cash_transfer(data){
             // data format

@@ -16,10 +16,18 @@ module.exports = class childs {
         return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE group_id = $1 and is_deleted = $2', [data.group_id, false]);
     }
     async get_child_info(data){
-        return {
-            status: 200,
-            data: await new DataBase('childs').getById(data.id)
+        let childs = await new DataBase('childs').getBy('id', data.id);
+        if(childs.length > 0){
+            return {
+                status: 200,
+                data: childs[0]
+            }
+        }else {
+            return {
+                status: 404
+            }
         }
+
     }
     async get_all_childs_on_program(data){
         return await new DataBase('childs').DB_query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id JOIN objects ON groups.object_id = objects.id WHERE objects.program_id = $1 and childs.is_deleted = $2', [data.program, false]);
