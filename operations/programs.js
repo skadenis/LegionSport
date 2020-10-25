@@ -13,11 +13,10 @@ class Programs {
 
         let programsA = await new DataBase('programs').getBy('id', data.id);
         if(programsA.length > 0){
-            let objects = await this.programObjects(data);
+            programsA[0].objects = await this.programObjects(data);
             return {
                 status: 200,
-                data: programsA[0],
-                objects
+                data: programsA[0]
             }
         }else {
             return {
