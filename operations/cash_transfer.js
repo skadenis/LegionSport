@@ -15,7 +15,7 @@ module.exports = class cash_transfer {
         // });
     }
     async get_child_payments(data){
-        let info = await new childs_module().get_child_info({id:data.id});
+        let info = await new childs_module('').get_child_info({id:data.id});
         let r_data;
          switch (info.status) {
              case 200:

@@ -17,7 +17,7 @@ const pool = new Pool({
 
 module.exports = class DataBase {
     constructor(table) {
-        table ? this.tableName = table : console.log('table is not defined');
+        table ? this.tableName = table : '';
     }
 
     async getBy(field, value, columns) {
