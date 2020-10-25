@@ -16,7 +16,9 @@ module.exports = class childs {
     static async get_child_info(data){
         let childsA = await new DataBase('childs').getBy('id', data.id);
         if(childsA.length > 0){
-            childsA[0].description = (childsA[0].description).toString();
+            if(childsA[0].description === null){
+                childsA[0].description = '';
+            }
             return {
                 status: 200,
                 data: childsA[0]
