@@ -45,7 +45,8 @@ class Objects {
 
         switch (prog_info.status) {
             case 200:
-                let answ = await new DataBase('objects').edit(data);
+                await new DataBase('objects').edit(data);
+                let answ = (await this.get_info(data)).data;
                 r_data = {
                     status: 200,
                     data: answ
