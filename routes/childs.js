@@ -178,9 +178,8 @@ router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRig
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
 
-            await cash_transfer.create_cash_transfer(req.body);
-
-
+            let data = await cash_transfer.create_cash_transfer(req.body);
+            res.json(data).status(data.status);
             break;
         case false:
             res.status(500);
