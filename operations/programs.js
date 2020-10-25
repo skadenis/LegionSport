@@ -1,20 +1,15 @@
 'use strict';
 let DataBase = require('../components/database/index');
-let rights = require('./rights');
 
-let config = require('../components/config/index');
-let jwt = require('jsonwebtoken');
-
-
-class SystemUsers {
+class Programs {
     constructor(){
 
     }
 
-    async get_all_programs(){
+    static async get_all_programs(){
         return await new DataBase('programs').getBy('is_deleted', false);
     }
-    async get_program_info(data){
+    static async get_program_info(data){
 
         let programsA = await new DataBase('programs').getBy('id', data.id);
         if(programsA.length > 0){
@@ -28,7 +23,7 @@ class SystemUsers {
             }
         }
     }
-    async create_program(data){
+    static async create_program(data){
         // data format
         // {login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
         return{
@@ -82,4 +77,4 @@ class SystemUsers {
     }
 }
 
-module.exports = SystemUsers;
+module.exports = Programs;
