@@ -43,10 +43,10 @@ class Programs {
 
         switch (prog_info.status) {
             case 200:
-                let answ = await new DataBase('programs').edit(data);
+                await new DataBase('programs').edit(data);
                 r_data = {
                     status: 200,
-                    data: answ
+                    data: await this.get_program_info(data)
                 };
                 break;
             default:
