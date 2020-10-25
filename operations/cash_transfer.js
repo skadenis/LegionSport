@@ -1,6 +1,5 @@
 'use strict';
 let DataBase = require('../components/database/index');
-let OperationWithChilds = require('../operations/childs');
 
 module.exports = class cash_transfer{
     constructor(){
@@ -15,6 +14,7 @@ module.exports = class cash_transfer{
         // });
     }
     static async get_child_payments(data){
+        let OperationWithChilds = require('../operations/childs');
         console.log(OperationWithChilds);
             let info_child = await OperationWithChilds.get_child_info(data);
             return info_child;
