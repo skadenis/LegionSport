@@ -12,7 +12,7 @@ router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function
     res.json(data);
 });
 router.get('/:id', verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    let data = await Programs.get_program_info({id: req.params.id});
+    let data = await new programs().get_program_info({id: req.params.id});
     res.json(data);
 });
 

@@ -9,7 +9,7 @@ class Programs {
     static async get_all_programs(){
         return await new DataBase('programs').getBy('is_deleted', false);
     }
-    static async get_program_info(data){
+    async get_program_info(data){
 
         let programsA = await new DataBase('programs').getBy('id', data.id);
         if(programsA.length > 0){
