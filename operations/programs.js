@@ -59,7 +59,7 @@ class Programs {
     }
     async delete_program(data){
 
-        let prog_info = await this.get_user_info(data);
+        let prog_info = await this.get_program_info(data);
         let r_data;
 
         switch (prog_info.status) {
