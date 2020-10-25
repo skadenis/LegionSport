@@ -72,19 +72,29 @@ class SystemUsers {
         // {id: 'int',login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
         let system_user = await new DataBase('system_users').getBy('id', data.id);
         if(system_user.length > 0) {
-            let system_user_logins = await new DataBase('system_users').getBy('login', data.login);
 
-            if (system_user_logins.length === 0){
+            if(system_user.login !== data.login){
+                let system_user_logins = await new DataBase('system_users').getBy('login', data.login);
+                if (system_user_logins.length === 0){
+                    return {
+                        status: 200,
+                        data: await new DataBase('system_users').edit(data)
+                    };
+                } else {
+                    return {
+                        status: 400,
+                        description: 'login is forbidden'
+                    };
+                }
+            }else{
+
                 return {
                     status: 200,
                     data: await new DataBase('system_users').edit(data)
                 };
-            } else {
-                return {
-                    status: 400,
-                    description: 'login is forbidden'
-                };
             }
+
+
 
         }else{
             return {
