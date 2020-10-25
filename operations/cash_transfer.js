@@ -38,6 +38,8 @@ module.exports = class cash_transfer{
         let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
         let r_data;
 
+        console.log(status);
+
         switch (info_child.status) {
             case 200:
                 await new DataBase('cash_transfer').add(data);
