@@ -154,7 +154,26 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 res.json(data);
             }else{
                 let data = await childs.edit_child(req.body);
-                res.json(data);
+                switch (data.status) {
+                    case 200:
+
+                        let data_info = await childs.get_child_info({id: req.params.id});
+                        if(data_info.status === 200){
+
+                            let payments = await cash_transfer.get_child_payments({id: req.body.id});
+                            let groups_child = await new groups().get_child_groups({id: req.body.id});
+
+                            data_info.data.payments = payments.data;
+                            data_info.data.groups = groups_child.groups;
+                        }
+
+                        res.json(data_info).status(data_info.status);
+
+                        break;
+                    default:
+                        res.json({status: 400});
+                        break
+                }
             }
 
             break;

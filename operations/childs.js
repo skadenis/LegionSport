@@ -51,6 +51,7 @@ module.exports = class childs {
         // data format
         // {id: 'int', name: 'string', description: 'string'}
         await new DataBase('childs').edit(data);
+        return {status:200};
     }
     static async delete_child(data){
         let update_data = {
