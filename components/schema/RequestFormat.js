@@ -251,7 +251,7 @@ module.exports = class RequestFormat {
                     required: true
                 },
                 description: {
-                    type: 'number',
+                    type: 'string',
                     required: true
                 },
             },
