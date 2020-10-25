@@ -2,7 +2,7 @@
 let DataBase = require('../components/database/index');
 let cash_transfer = require('./cash_transfer');
 
-module.exports = class childs {
+class childs {
     constructor(){
     }
 
@@ -60,3 +60,5 @@ module.exports = class childs {
         await new DataBase('childs').edit(update_data);
     }
 }
+
+module.exports = childs;
