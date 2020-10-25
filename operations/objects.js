@@ -44,6 +44,8 @@ class Objects {
         let r_data;
         let id = prog_info.data.id;
 
+        console.log(prog_info);
+
         switch (prog_info.status) {
             case 200:
                 await new DataBase('objects').edit(data);
