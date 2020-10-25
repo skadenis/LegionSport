@@ -19,7 +19,7 @@ let representativesRouter = require('./representatives');
 router.use('/representatives', representativesRouter);
 
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    let data = await new childs().get_all_childs();
+    let data = await childs.get_all_childs();
     res.json(data);
 });
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
@@ -60,7 +60,7 @@ router.post('/all_child_in_program', Policy(), verifyToken, CheckAuthorization, 
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_program()).validate(req.body)) {
         case true:
-            let data = await new childs().get_all_childs_on_program(req.body);
+            let data = await childs.get_all_childs_on_program(req.body);
             res.json(data);
             break;
         case false:
@@ -80,7 +80,7 @@ router.post('/all_child_in_object', Policy(), verifyToken, CheckAuthorization, W
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_obj()).validate(req.body)) {
         case true:
-            let data = await new childs().get_all_childs_on_obj(req.body);
+            let data = await childs.get_all_childs_on_obj(req.body);
             res.json(data);
             break;
         case false:
@@ -100,7 +100,7 @@ router.post('/all_child_in_group', Policy(), verifyToken, CheckAuthorization, Wa
 
     switch (await new Schema(await RequestFormat.get_all_childs_on_group()).validate(req.body)) {
         case true:
-            let data = await new childs().get_all_childs_on_group(req.body);
+            let data = await childs.get_all_childs_on_group(req.body);
             res.json(data);
             break;
         case false:
@@ -120,7 +120,7 @@ router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 
     switch (await new Schema(await RequestFormat.add_child()).validate(req.body)) {
         case true:
-            let data = await new childs().create_child(req.body);
+            let data = await childs.create_child(req.body);
             res.json(data);
             break;
         case false:
@@ -142,10 +142,10 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 
             if(req.body.id === 0){
                 delete req.body.id;
-                let data = await new childs().create_child(req.body);
+                let data = await childs.create_child(req.body);
                 res.json(data);
             }else{
-                let data = await new childs().edit_child(req.body);
+                let data = await childs.edit_child(req.body);
                 res.json(data);
             }
 
@@ -164,7 +164,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.delete_child()).validate(req.body)) {
         case true:
-            let data = await new childs().delete_child(req.body);
+            let data = await childs.delete_child(req.body);
             res.json(data);
             break;
         case false:
