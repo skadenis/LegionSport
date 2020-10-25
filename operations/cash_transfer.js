@@ -15,21 +15,18 @@ module.exports = class cash_transfer{
     }
     static async get_child_payments(data){
         let OperationWithChilds = require('../operations/childs');
-        console.log(OperationWithChilds);
-            let info_child = await OperationWithChilds.get_child_info(data);
-            return info_child;
-        // return await OperationWithChilds.get_child_info({id: 2});
+        let info_child = await OperationWithChilds.get_child_info(data);
 
-        // let r_data;
-        //  switch (info.status) {
-        //      case 200:
-        //          r_data = {status: 200, data: await new DataBase('cash_transfer').getBy('child_id', data.id)};
-        //          break;
-        //      case 404:
-        //          r_data = {status: 404, description: 'no child with such id'};
-        //          break;
-        //  }
-        //  return r_data;
+        let r_data;
+         switch (info_child.status) {
+             case 200:
+                 r_data = {status: 200, data: await new DataBase('cash_transfer').getBy('child_id', data.id)};
+                 break;
+             case 404:
+                 r_data = {status: 404, description: 'no child with such id'};
+                 break;
+         }
+         return r_data;
     }
     async create_cash_transfer(data){
             // data format
