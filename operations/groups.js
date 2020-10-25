@@ -3,7 +3,7 @@ let DataBase = require('../components/database/index');
 
 
 
-module.exports = class Groups {
+module.exports = class groups {
     constructor(){
     }
 
