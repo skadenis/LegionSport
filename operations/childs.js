@@ -2,7 +2,7 @@
 let DataBase = require('../components/database/index');
 let cash_transfer = require('./cash_transfer');
 
-class childs {
+module.exports = class childs {
 
     static async get_all_childs(){
         return await new DataBase('childs').getBy('is_deleted', false);
@@ -58,4 +58,3 @@ class childs {
     }
 }
 
-module.exports = childs;
