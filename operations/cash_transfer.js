@@ -15,17 +15,18 @@ module.exports = class cash_transfer {
         // });
     }
     async get_child_payments(data){
-        let info = await new childs_module().get_child_info({id:data.id});
-        let r_data;
-         switch (info.status) {
-             case 200:
-                 r_data = {status: 200, data: await new DataBase('cash_transfer').getBy('child_id', data.id)};
-                 break;
-             case 404:
-                 r_data = {status: 404, description: 'no child with such id'};
-                 break;
-         }
-         return r_data;
+        return await new childs_module().get_child_info({id:data.id});
+
+        // let r_data;
+        //  switch (info.status) {
+        //      case 200:
+        //          r_data = {status: 200, data: await new DataBase('cash_transfer').getBy('child_id', data.id)};
+        //          break;
+        //      case 404:
+        //          r_data = {status: 404, description: 'no child with such id'};
+        //          break;
+        //  }
+        //  return r_data;
     }
     async create_cash_transfer(data){
             // data format
