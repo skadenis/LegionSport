@@ -147,9 +147,9 @@ router.post('/all_child_in_group', Policy(), verifyToken, CheckAuthorization, Wa
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.edit_child()).validate(req.body)) {
         case true:
-console.log(req.body.id);
+            let id = req.body.id;
+
             if(req.body.id === 0){
-                console.log(req.body.id);
                 delete req.body.id;
                 let data = await childs.create_child(req.body);
                 switch (data.status) {
@@ -173,7 +173,6 @@ console.log(req.body.id);
                         break
                 }
             }else{
-                let id = req.body.id;
                 let data = await childs.edit_child(req.body);
                 switch (data.status) {
                     case 200:
