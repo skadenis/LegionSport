@@ -38,7 +38,11 @@ module.exports = class childs {
         // {name: 'string', description: 'string'}
         console.log(data);
         let newChild = await new DataBase('childs').add(data);
-        console.log(newChild);
+        console.log({
+            id: newChild.id,
+            login: newChild.id,
+            password: 12312
+        });
         await new DataBase('child_has_login_info').add({
             id: newChild.id,
             login: newChild.id,
