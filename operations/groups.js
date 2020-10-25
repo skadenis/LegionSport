@@ -11,6 +11,8 @@ module.exports = class Groups {
         let OperationWithChilds = require('../operations/childs');
         let info_child = await OperationWithChilds.get_child_info(data);
         let r_data;
+
+
         switch (info_child.status) {
             case 200:
                 let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
@@ -27,6 +29,7 @@ module.exports = class Groups {
                 };
                 break;
         }
+        return r_data;
     }
     async child_add_to_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
