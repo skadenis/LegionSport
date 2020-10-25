@@ -26,7 +26,7 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
     let data = await childs.get_child_info({id: req.params.id});
     if(data.status === 200){
         let payments = await cash_transfer.get_child_payments({id: req.params.id});
-        let groups = await new groups().get_child_groups({id: req.params.id});
+        let groups = await groups.get_child_groups({id: req.params.id});
 
         data.data.payments = payments.data;
         data.data.groups = groups.groups;
@@ -40,7 +40,7 @@ router.get('/:id/payments', Policy(), verifyToken, CheckAuthorization, WatchChil
     res.json(data);
 });
 router.get('/:id/groups', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
-    let data = await new groups().get_child_groups({id: req.params.id});
+    let data = await Groups.get_child_groups({id: req.params.id});
     res.json(data);
 });
 router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
