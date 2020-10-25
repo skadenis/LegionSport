@@ -18,7 +18,7 @@ module.exports = class childs {
     async get_child_info(data){
         return {
             status: 200,
-            data: await new DataBase('objects').getById(data.id)
+            data: await new DataBase('childs').getById(data.id)
         }
     }
     async get_all_childs_on_program(data){
