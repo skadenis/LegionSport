@@ -177,13 +177,9 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:
-            let data = await childs.get_child_info(req.body);
-            if (data.status === 200){
-                await new cash_transfer.create_cash_transfer(req.body);
-                res.json({status:200});
-            } else {
-                res.json({status: 404});
-            }
+
+            await new cash_transfer.create_cash_transfer(req.body);
+
 
             break;
         case false:
