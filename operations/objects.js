@@ -22,7 +22,7 @@ class Objects {
     async get_info(data){
         let programsA = await new DataBase('objects').getBy('id', data.id);
         if(programsA.length > 0){
-            programsA[0].groups = await new DataBase('groups').getBy('object_id', data.id);
+            programsA[0].groups = await new DataBase('groups').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.id,false]);
             return {
                 status: 200,
                 data: programsA[0],
