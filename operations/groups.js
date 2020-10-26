@@ -87,6 +87,9 @@ module.exports = class groups {
             is_deleted: true
         };
         await new DataBase('groups').edit(update_data);
+        return {
+            status: 200, groups: await new DataBase('groups').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.id,false]);
+        }
     }
 
 };
