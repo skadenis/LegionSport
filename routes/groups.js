@@ -19,7 +19,7 @@ router.post('/get-all-by-object', Policy(), verifyToken, CheckAuthorization, Man
 });
 
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    let data = await new objects().get_info({id: req.params.id});
+    let data = await new groups().get_info({id: req.params.id});
     res.json(data);
 });
 
