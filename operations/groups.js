@@ -7,7 +7,7 @@ module.exports = class groups {
     constructor(){
     }
 
-    async get_child_groups(data){
+    static async get_child_groups(data){
         let OperationWithChilds = require('../operations/childs');
         let info_child = await OperationWithChilds.get_child_info(data);
         let r_data;
@@ -31,7 +31,7 @@ module.exports = class groups {
         }
         return r_data;
     }
-    async child_add_to_group(data){
+    static async child_add_to_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
             let answ = await new DataBase('child_has_groups').add({
@@ -52,30 +52,36 @@ module.exports = class groups {
         }
     }
 
-    async get_all_groups(){
+    static async get_all(){
         return await new DataBase('objects').getBy('is_deleted', false);
     }
-    async get_all_groups_on_obj(data){
-        return await new DataBase('groups').query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.object, false]);
+    static async get_all_groups_on_obj(data){
+        return {
+            status: 200,
+            data: await new DataBase('groups').query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.object, false])
+        };
     }
-    async get_group_info(data){
+    async childs_in_group(data){
+        return await new DataBase('').DB_query('SELECT childs.id, childs.name, childs.surname, childs.lastname FROM child_has_groups JOIN childs on childs.id = child_has_groups.child_id WHERE group_id = $1 ',[data.group_id])
+    }
+    async get_info(data){
         return {
             status: 200,
             data: await new DataBase('objects').getById(data.id),
-            childs_in_group: []
+            childs_in_group:await this.childs_in_group({group_id: data.id})
         }
     }
-    async create_group(data){
+    static async create(data){
         // data format
         // {name: 'string', description: 'string'}
         await new DataBase('groups').add(data);
     }
-    async edit_group(data){
+    static async edit(data){
         // data format
         // {id: 'int', name: 'string', description: 'string'}
         await new DataBase('groups').edit(data);
     }
-    async delete_group(data){
+    static async delete(data){
         let update_data = {
             id: data.id,
             is_deleted: true
@@ -83,4 +89,4 @@ module.exports = class groups {
         await new DataBase('groups').edit(update_data);
     }
 
-}
+};
