@@ -75,9 +75,11 @@ module.exports = class groups {
         // data format
         // {name: 'string', description: 'string'}
         let Sdata = await new DataBase('groups').add(data);
+        let answ =  (await this.get_info({id:Sdata.id})).data;
+
         return{
             status: 200,
-            data: (await this.get_info({id:Sdata.id})).data
+            data: answ
         };
     }
     static async edit(data){
