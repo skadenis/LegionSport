@@ -67,7 +67,7 @@ module.exports = class groups {
     async get_info(data){
         return {
             status: 200,
-            data: await new DataBase('objects').getById(data.id),
+            data: await new DataBase('groups').getById(data.id),
             childs_in_group:await this.childs_in_group({group_id: data.id})
         }
     }
