@@ -6,7 +6,7 @@ const verifyToken = require('../components/functions/Token');
 const CheckAuthorization = require('../components/functions/CheckAuthorization');
 const ManageRights = require('../components/functions/Rights/ManagePrograms');
 
-let objects = require('../operations/groups');
+let groups = require('../operations/groups');
 
 router.get('/all',  Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await groups.get_all();
