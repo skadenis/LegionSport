@@ -71,7 +71,7 @@ module.exports = class groups {
             childs_in_group:await this.childs_in_group({group_id: data.id})
         }
     }
-    static async create(data){
+    async create(data){
         // data format
         // {name: 'string', description: 'string'}
         let Sdata = await new DataBase('groups').add(data);
@@ -82,7 +82,7 @@ module.exports = class groups {
             data: answ
         };
     }
-    static async edit(data){
+    async edit(data){
         // data format
         // {id: 'int', name: 'string', description: 'string'}
         let Sdata = await new DataBase('groups').edit(data);
