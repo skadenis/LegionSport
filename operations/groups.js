@@ -74,12 +74,20 @@ module.exports = class groups {
     static async create(data){
         // data format
         // {name: 'string', description: 'string'}
-        await new DataBase('groups').add(data);
+        let Sdata = await new DataBase('groups').add(data);
+        return{
+            status: 200,
+            data: (await this.get_info({id:Sdata.id})).data
+        };
     }
     static async edit(data){
         // data format
         // {id: 'int', name: 'string', description: 'string'}
-        await new DataBase('groups').edit(data);
+        let Sdata = await new DataBase('groups').edit(data);
+        return{
+            status: 200,
+            data: (await this.get_info({id:Sdata.id})).data
+        };
     }
     static async delete(data){
         let update_data = {
