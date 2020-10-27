@@ -5,8 +5,7 @@ let child = require('./childs');
 let Lessons = require('./lessons');
 
 module.exports = class groups {
-    constructor(){
-    }
+    constructor(){}
 
     static async get_child_groups(data){
         let OperationWithChilds = require('../operations/childs');
@@ -64,7 +63,7 @@ module.exports = class groups {
     static async remove_from_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
-            let answ = await new DataBase('child_has_groups').DB_query('DELETE * FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
+            let answ = await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
 
             return {
                 status: 200,
@@ -78,6 +77,7 @@ module.exports = class groups {
             }
         }
     }
+
 
     static async get_all(){
         return await new DataBase('groups').getBy('is_deleted', false);
@@ -129,5 +129,4 @@ module.exports = class groups {
             status: 200, groups: await new DataBase('groups').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.id,false])
         }
     }
-
 };
