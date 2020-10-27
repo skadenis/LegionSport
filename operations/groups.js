@@ -49,7 +49,7 @@ module.exports = class groups {
 
                 return {
                     status: 200,
-                    info: (await new child.get_child_info({id: data.id})).data
+                    info: (await child.get_child_info({id: data.id})).data
                 }
             }
 
@@ -67,7 +67,7 @@ module.exports = class groups {
 
             return {
                 status: 200,
-                info: (await new child.get_child_info({id: data.id})).data
+                info: (await child.get_child_info({id: data.id})).data
             }
 
         }else {
