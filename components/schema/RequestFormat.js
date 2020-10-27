@@ -288,7 +288,43 @@ module.exports = class RequestFormat {
         };
     }
     static async representatives_add(){}
-    static async representatives_edit(){}
+    static async representatives_edit(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                name: {
+                    type: 'string',
+                    required: true
+                },
+                surname: {
+                    type: 'string',
+                    required: true
+                },
+                lastname: {
+                    type: 'string',
+                    required: true
+                },
+                email: {
+                    type: 'string',
+                    required: true
+                },
+                phone: {
+                    type: 'string',
+                    required: true
+                },
+                who: {
+                    type: 'string',
+                    required: true
+                }
+
+            },
+            additionalProperties: false
+        };
+    }
     static async representatives_delete(){
         return {
             type: 'object',
