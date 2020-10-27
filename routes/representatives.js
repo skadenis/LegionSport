@@ -59,10 +59,11 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
     // Обязательно настроить для учетных записей параоль перевод в хеш md5
     switch (await new Schema(await RequestFormat.representatives_edit()).validate(req.body)) {
         case true:
+            let data;
             if(req.body.id === 0){
-                let data = await new system().add_child_representatives(req.body);
+                data = await new system().add_child_representatives(req.body);
             }else {
-                let data = await new system().edit_representative(req.body);
+                data = await new system().edit_representative(req.body);
             }
             res.json(data);
             break;
