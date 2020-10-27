@@ -7,6 +7,10 @@ module.exports = class groups {
     constructor(){
     }
 
+    async get_all_lessons_by_group_id(data){
+        return await new DataBase('').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_delete = $2',[data.id, false])
+    }
+
 
     static async get_all(){
         return await new DataBase('groups').getBy('is_deleted', false);
@@ -14,7 +18,7 @@ module.exports = class groups {
     static async get_all_by_group(data){
         return {
             status: 200,
-            data: await new DataBase('groups').query('SELECT * FROM lessons WHERE object_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.group_id, false])
+            data: await new DataBase('groups').query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.id, false])
         };
     }
 

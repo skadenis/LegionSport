@@ -2,6 +2,8 @@
 let DataBase = require('../components/database/index');
 
 let child = require('./childs');
+let Lessons = require('./lessons');
+
 module.exports = class groups {
     constructor(){
     }
@@ -93,7 +95,8 @@ module.exports = class groups {
         return {
             status: 200,
             data: await new DataBase('groups').getById(data.id),
-            childs_in_group:await this.childs_in_group({group_id: data.id})
+            childs_in_group:await this.childs_in_group({group_id: data.id}),
+            lessons: await new Lessons().get_all_lessons_by_group_id({id: data.id})
         }
     }
     async create(data){
