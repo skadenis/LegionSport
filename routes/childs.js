@@ -14,6 +14,7 @@ const WatchChilds = require('../components/functions/Rights/WatchChilds');
 let childs = require('../operations/childs');
 let cash_transfer = require('../operations/cash_transfer');
 let groups = require('../operations/groups');
+let representatives = require('../operations/representatives');
 
 let representativesRouter = require('./representatives');
 router.use('/representatives', representativesRouter);
@@ -28,9 +29,11 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
 
         let payments = await cash_transfer.get_child_payments({id: req.params.id});
         let groups_child = await groups.get_child_groups({id: req.params.id});
+        let representatives = await new representatives().get_child_representatives({child_id: req.params.id});
 
         data.data.payments = payments.data;
         data.data.groups = groups_child.groups;
+        data.data.representatives = representatives;
     }
 
     res.json(data).status(data.status);
