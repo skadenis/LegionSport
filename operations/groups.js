@@ -36,10 +36,12 @@ module.exports = class groups {
         if(users.length > 0){
 
             let serverAnsw = await new DataBase('').DB_query('SELECT * FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id, data.group_id]);
+            let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+
             if(serverAnsw.length > 0){
                 return {
                     status: 400,
-                    info: (await new child.get_child_info({id: data.id})).data
+                    info: groups
                 }
             }else {
                 let answ = await new DataBase('child_has_groups').add({
@@ -63,11 +65,12 @@ module.exports = class groups {
     static async remove_from_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
-            let answ = await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
+            await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
+            let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
             return {
                 status: 200,
-                info: (await child.get_child_info({id: data.id})).data
+                info: groups
             }
 
         }else {
