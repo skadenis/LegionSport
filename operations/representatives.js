@@ -6,6 +6,13 @@ module.exports = class representatives {
 
   }
 
+  async get_info(data){
+      return {
+          status: 200,
+          data: await new DataBase('representative').getById(data.id)
+      }
+  }
+
   async get_child_representatives(data){
       return await new DataBase('representative').DB_query('SELECT * FROM representative WHERE child_id = $1 and is_deleted = $2', [data.child_id, false]);
   }

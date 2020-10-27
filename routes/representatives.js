@@ -98,5 +98,9 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
     }
 
 });
+router.get('/:id', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    let data = await new system().get_info({id: req.params.id});
+    res.json(data);
+});
 
 module.exports = router;
