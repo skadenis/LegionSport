@@ -8,9 +8,7 @@ module.exports = class groups {
     }
 
     async get_all_lessons_by_group_id(data){
-        console.log(data);
-        // return await new DataBase('').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_delete = $2',[data.id, false])
-        return [];
+        return await new DataBase('').DB_query('SELECT * FROM lessons WHERE group_id = $1 and is_delete = $2',[Number(data.id), false])
     }
 
 
