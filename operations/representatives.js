@@ -25,9 +25,11 @@ module.exports = class representatives {
   }
   async edit_representative(data){
       let users = await new DataBase('representative').getBy('id',data.id);
-      let info = await this.get_info({id:data.id});
+
 
       if(users.length > 0){
+          await new DataBase('representative').edit(data);
+          let info = await this.get_info({id:data.id});
           return {
               status:200,
               data: info
