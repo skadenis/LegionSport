@@ -62,26 +62,6 @@ router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRi
             break;
     }
 });
-
-// router.post('/create', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-//     switch (await new Schema(await RequestFormat.add_child()).validate(req.body)) {
-//         case true:
-//             let data = await childs.create_child(req.body);
-//             res.json(data);
-//             break;
-//         case false:
-//             res.status(500);
-//             res.json({error:"Server error"});
-//             break;
-//         default:
-//             res.status(400);
-//             res.json({error:"Unexpected data format"});
-//             break;
-//     }
-//
-//
-//
-// });
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.edit_child()).validate(req.body)) {
         case true:

@@ -53,7 +53,7 @@ module.exports = class groups {
     }
 
     static async get_all(){
-        return await new DataBase('objects').getBy('is_deleted', false);
+        return await new DataBase('groups').getBy('is_deleted', false);
     }
     static async get_all_groups_on_obj(data){
         return {
