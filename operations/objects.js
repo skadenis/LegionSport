@@ -12,7 +12,7 @@ class Objects {
             data: await new DataBase('objects').getBy('is_deleted', false)
         };
     }
-    static async get_all_by_program(data){
+    async get_all_by_program(data){
         console.log(data);
         return {
             status:200,
