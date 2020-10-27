@@ -17,7 +17,7 @@ module.exports = class representatives {
       return await new DataBase('representative').DB_query('SELECT * FROM representative WHERE child_id = $1 and is_deleted = $2', [data.child_id, false]);
   }
   async add_child_representatives(data){
-      let info = await this.get_info({id:data.id});
+      let info = await new DataBase('representative').add(data);
       return {
           status:200,
           data: info
@@ -28,8 +28,7 @@ module.exports = class representatives {
 
 
       if(users.length > 0){
-          await new DataBase('representative').edit(data);
-          let info = await this.get_info({id:data.id});
+          let info = await new DataBase('representative').edit(data);
           return {
               status:200,
               data: info
