@@ -18,19 +18,23 @@ module.exports = class representatives {
   }
   async add_child_representatives(data){
       let repr = this.get_child_representatives({child_id: data.child_id});
+      let info = this.get_info({id:data.id});
       return {
           status:200,
-          info: repr
+          info: repr,
+          data: info
       };
   }
   async edit_representative(data){
       let users = await new DataBase('representative').getBy('id',data.id);
       let repr = this.get_child_representatives({child_id: users[0].child_id});
+      let info = this.get_info({id:data.id});
 
       if(users.length > 0){
           return {
               status:200,
-              info: repr
+              info: repr,
+              data: info
           };
       }else {
           return {
