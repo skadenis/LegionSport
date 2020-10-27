@@ -15,6 +15,7 @@ router.get('/all', verifyToken, CheckAuthorization, ManageRights, async function
 
 router.post('/get-all-by-program', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data = await new objects().get_all_by_program({program_id: req.body.program_id});
+    consol
     res.json(data);
 });
 

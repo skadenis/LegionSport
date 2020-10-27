@@ -58,7 +58,7 @@ module.exports = class groups {
     static async get_all_groups_on_obj(data){
         return {
             status: 200,
-            data: await new DataBase('groups').query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.object, false])
+            data: await new DataBase('groups').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.object, false])
         };
     }
     async childs_in_group(data){
