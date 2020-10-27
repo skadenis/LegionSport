@@ -319,7 +319,11 @@ module.exports = class RequestFormat {
                 who: {
                     type: 'string',
                     required: true
-                }
+                },
+                child_id: {
+                    type: 'number',
+                    required: true
+                },
 
             },
             additionalProperties: false
