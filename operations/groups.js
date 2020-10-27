@@ -15,7 +15,7 @@ module.exports = class groups {
 
         switch (info_child.status) {
             case 200:
-                let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, object.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
                 r_data = {
                     status: 200,
@@ -46,7 +46,7 @@ module.exports = class groups {
                     child_id: data.id,
                     group_id: data.group_id
                 });
-                let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, object.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
 
                 return {
@@ -66,7 +66,7 @@ module.exports = class groups {
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
             await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
-            let groups = await new DataBase('child_has_groups').DB_query('SELECT groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+            let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, object.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
             return {
                 status: 200,
