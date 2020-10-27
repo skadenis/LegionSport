@@ -41,7 +41,6 @@ module.exports = class groups {
             if(serverAnsw.length > 0){
                 return {
                     status: 400,
-                    info: groups
                 }
             }else {
                 let answ = await new DataBase('child_has_groups').add({
@@ -51,7 +50,7 @@ module.exports = class groups {
 
                 return {
                     status: 200,
-                    info: (await child.get_child_info({id: data.id})).data
+                    groups
                 }
             }
 
@@ -70,7 +69,7 @@ module.exports = class groups {
 
             return {
                 status: 200,
-                info: groups
+                groups
             }
 
         }else {
