@@ -29,11 +29,11 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
 
         let payments = await cash_transfer.get_child_payments({id: req.params.id});
         let groups_child = await groups.get_child_groups({id: req.params.id});
-        let representatives = await new representatives().get_child_representatives({child_id: req.params.id});
+        let representative = await new representatives().get_child_representatives({child_id: req.params.id});
 
         data.data.payments = payments.data;
         data.data.groups = groups_child.groups;
-        data.data.representatives = representatives;
+        data.data.representatives = representative;
     }
 
     res.json(data).status(data.status);
