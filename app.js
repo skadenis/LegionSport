@@ -12,6 +12,7 @@ let programsRouter = require('./routes/programs');
 let objectsRouter = require('./routes/objects');
 let cashTransferRouter = require('./routes/cash-transfer');
 let systemRouter = require('./routes/system');
+let lessonsRouter = require('./routes/lessons');
 
 let app = express();
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', systemRouter);
 app.use('/system_users', indexRouter);
 app.use('/childs', childsRouter);
+app.use('/lessons', lessonsRouter);
 app.use('/groups', groupsRouter);
 app.use('/programs', programsRouter);
 app.use('/objects', objectsRouter);
