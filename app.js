@@ -13,6 +13,7 @@ let objectsRouter = require('./routes/objects');
 let cashTransferRouter = require('./routes/cash-transfer');
 let systemRouter = require('./routes/system');
 let lessonsRouter = require('./routes/lessons');
+let season_ticketsRoute = require('./routes/season_tickets');
 
 let app = express();
 
@@ -41,6 +42,7 @@ app.use('/groups', groupsRouter);
 app.use('/programs', programsRouter);
 app.use('/objects', objectsRouter);
 app.use('/cash-transfer', cashTransferRouter);
+app.use('/season_tickets', season_ticketsRoute);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
