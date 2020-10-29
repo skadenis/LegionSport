@@ -19,6 +19,7 @@ router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
     let data = await teacher.get_all();
     res.json(data);
 });
+
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await teacher.get_info({id: req.params.id});
     if(data.status === 200){
