@@ -14,6 +14,7 @@ let cashTransferRouter = require('./routes/cash-transfer');
 let systemRouter = require('./routes/system');
 let lessonsRouter = require('./routes/lessons');
 let season_ticketsRoute = require('./routes/season_tickets');
+let teacherRouter = require('./routes/teacher');
 
 let app = express();
 
@@ -41,6 +42,7 @@ app.use('/lessons', lessonsRouter);
 app.use('/groups', groupsRouter);
 app.use('/programs', programsRouter);
 app.use('/objects', objectsRouter);
+app.use('/teachers', teacherRouter);
 app.use('/cash-transfer', cashTransferRouter);
 app.use('/season_tickets', season_ticketsRoute);
 

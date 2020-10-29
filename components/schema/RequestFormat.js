@@ -341,5 +341,29 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
+    static async edit_teacher(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: true
+        };
+    }
+    static async delete_teacher(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
 
 };
