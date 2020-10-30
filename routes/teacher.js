@@ -12,7 +12,6 @@ const ManageRights = require('../components/functions/Rights/ManageChilds');
 const WatchChilds = require('../components/functions/Rights/WatchChilds');
 
 let teacher = require('../operations/teacher');
-let cash_transfer = require('../operations/cash_transfer');
 let groups = require('../operations/groups');
 
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {

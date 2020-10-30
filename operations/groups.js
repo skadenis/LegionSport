@@ -3,6 +3,7 @@ let DataBase = require('../components/database/index');
 
 let child = require('./childs');
 let Lessons = require('./lessons');
+let teachers = require('./teacher');
 
 module.exports = class groups {
     constructor(){}
@@ -111,12 +112,26 @@ module.exports = class groups {
         return await new DataBase('').DB_query('SELECT childs.id, childs.name, childs.surname, childs.lastname FROM child_has_groups JOIN childs on childs.id = child_has_groups.child_id WHERE group_id = $1 ',[data.group_id])
     }
     async get_info(data){
-        return {
+        let getById_data = await new DataBase('groups').getById(data.id);
+        let r_data = {
             status: 200,
-            data: await new DataBase('groups').getById(data.id),
+            data: getById_data,
             childs_in_group:await this.childs_in_group({group_id: data.id}),
-            lessons: await new Lessons().get_all_lessons_by_group_id({id: data.id})
+            lessons: await new Lessons().get_all_lessons_by_group_id({id: data.id}),
+        };
+
+        if(!getById_data.teacher_id){
+            r_data.teacher = null
+        }else{
+            let teacher = await teachers.get_info({id: getById_data.teacher_id});
+            r_data.teacher = {
+                name: teacher.data.name,
+                surname: teacher.data.surname,
+                lastname: teacher.data.lastname,
+            };
         }
+
+        return r_data;
     }
     async create(data){
         // data format
