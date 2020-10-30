@@ -128,7 +128,7 @@ module.exports = class groups {
     }
     async get_info(data){
         let getById_data = await new DataBase('groups').getById(data.id);
-        getById_data.timesheet = JSON.parse(getById_data.timesheet).timesheet;
+        getById_data.timesheet = getById_data.timesheet.timesheet;
 
         let r_data = {
             status: 200,
