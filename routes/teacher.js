@@ -14,6 +14,23 @@ const WatchChilds = require('../components/functions/Rights/WatchChilds');
 let teacher = require('../operations/teacher');
 let groups = require('../operations/groups');
 
+router.post('/add_to_group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    switch (await new Schema(await RequestFormat.add_to_group_teacher()).validate(req.body)) {
+        case true:
+            let data = await groups.teacher_add_to_group(req.body);
+            res.json(data);
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
+
+});
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await teacher.get_all();
     res.json(data);
@@ -101,22 +118,6 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 
 });
 
-router.post('/add_to_group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    switch (await new Schema(await RequestFormat.add_to_group_teacher()).validate(req.body)) {
-        case true:
-            let data = await groups.teacher_add_to_group(req.body);
-            res.json(data);
-            break;
-        case false:
-            res.status(500);
-            res.json({error:"Server error"});
-            break;
-        default:
-            res.status(400);
-            res.json({error:"Unexpected data format"});
-            break;
-    }
 
-});
 
 module.exports = router;
