@@ -41,11 +41,10 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 id = data.id;
                 switch (data.status) {
                     case 200:
-                        let data_info = await childs.get_child_info({id: id});
+                        let data_info = await teacher.get_info({id: id});
                         if(data_info.status === 200){
 
                             let groups_teacher = await groups.get_teacher_groups({id: id});
-
                             data_info.data.groups = groups_teacher.groups;
                         }
 

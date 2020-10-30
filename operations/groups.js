@@ -31,6 +31,16 @@ module.exports = class groups {
         }
         return r_data;
     }
+    static async get_teacher_groups(data){
+        return {
+            status: 200,
+            data: await new DataBase('').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM  groups JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE groups.teacher_id = $1', [data.id])
+        }
+    }
+
+
+
+
     static async child_add_to_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
