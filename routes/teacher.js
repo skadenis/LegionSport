@@ -19,7 +19,6 @@ router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
     let data = await teacher.get_all();
     res.json(data);
 });
-
 router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await teacher.get_info({id: req.params.id});
     if(data.status === 200){
@@ -29,7 +28,6 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, WatchChilds, async
 
     res.json(data).status(data.status);
 });
-
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.edit_teacher()).validate(req.body)) {
         case true:
@@ -103,12 +101,51 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
     }
 
 });
-router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
-        case true:
 
-            let data = await cash_transfer.create_cash_transfer(req.body);
-            res.json(data).status(data.status);
+router.post('/add_to_group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    switch (await new Schema(await RequestFormat.add_to_group_teacher()).validate(req.body)) {
+        case true:
+            let id = req.body.id;
+
+            if(req.body.id === 0){
+                delete req.body.id;
+                let data = await teacher.create(req.body);
+                id = data.id;
+                switch (data.status) {
+                    case 200:
+                        let data_info = await teacher.get_info({id: id});
+                        if(data_info.status === 200){
+
+                            let groups_teacher = await groups.get_teacher_groups({id: id});
+                            data_info.data.groups = groups_teacher.groups;
+                        }
+
+                        res.json(data_info).status(data_info.status);
+
+                        break;
+                    default:
+                        res.json({status: 400});
+                        break
+                }
+            }else{
+                let data = await teacher.edit(req.body);
+                switch (data.status) {
+                    case 200:
+                        let data_info = await teacher.get_info({id: id});
+                        if(data_info.status === 200){
+                            let groups_child = await groups.get_teacher_groups({id: id});
+                            data_info.data.groups = groups_child.groups;
+                        }
+
+                        res.json(data_info).status(data_info.status);
+
+                        break;
+                    default:
+                        res.json({status: 400});
+                        break
+                }
+            }
+
             break;
         case false:
             res.status(500);

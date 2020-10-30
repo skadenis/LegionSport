@@ -360,38 +360,28 @@ module.exports = class RequestFormat {
                 id: {
                     type: 'number',
                     required: true
-                },
-                name: {
-                    type: 'string',
-                    required: false
-                },
-                surname: {
-                    type: 'string',
-                    required: false
-                },
-                lastname: {
-                    type: 'string',
-                    required: false
-                },
-                birthday: {
-                    type: 'date',
-                    required: false
-                },
-                description: {
-                    type: 'string',
-                    required: false
-                },
-                email: {
-                    type: 'string',
-                    required: true
-                },
-                phone: {
-                    type: 'number',
-                    required: true
-                },
+                }
             },
             additionalProperties: false
         };
     }
+
+    static async add_to_group_teacher(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                group_id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
+
 
 };
