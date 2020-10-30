@@ -41,6 +41,12 @@ module.exports = class groups {
 
 
 
+    static async teacher_add_to_group(data){
+        return {status:200, data: await new DataBase('groups').update({
+            id: data.group_id,
+            teacher_id: data.id
+        })};
+    }
     static async child_add_to_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
