@@ -140,6 +140,7 @@ module.exports = class groups {
         }else{
             let teacher = await teachers.get_info({id: getById_data.teacher_id});
             r_data.teacher = {
+                id: getById_data.teacher_id,
                 name: teacher.data.name,
                 surname: teacher.data.surname,
                 lastname: teacher.data.lastname,
