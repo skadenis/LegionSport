@@ -349,8 +349,8 @@ module.exports = class RequestFormat {
                     type: 'number',
                     required: true
                 }
-            },
-            additionalProperties: true
+            }
+            // additionalProperties: true
         };
     }
     static async delete_teacher(){
@@ -360,7 +360,35 @@ module.exports = class RequestFormat {
                 id: {
                     type: 'number',
                     required: true
-                }
+                },
+                name: {
+                    type: 'string',
+                    required: false
+                },
+                surname: {
+                    type: 'string',
+                    required: false
+                },
+                lastname: {
+                    type: 'string',
+                    required: false
+                },
+                birthday: {
+                    type: 'date',
+                    required: false
+                },
+                description: {
+                    type: 'string',
+                    required: false
+                },
+                email: {
+                    type: 'string',
+                    required: true
+                },
+                phone: {
+                    type: 'number',
+                    required: true
+                },
             },
             additionalProperties: false
         };
