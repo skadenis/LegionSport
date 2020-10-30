@@ -14,7 +14,8 @@ const WatchChilds = require('../components/functions/Rights/WatchChilds');
 let teacher = require('../operations/teacher');
 let groups = require('../operations/groups');
 
-router.post('/add_to_group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+router.post('/add-to-group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+
     switch (await new Schema(await RequestFormat.add_to_group_teacher()).validate(req.body)) {
         case true:
             let data = await groups.teacher_add_to_group(req.body);
