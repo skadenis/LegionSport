@@ -25,6 +25,7 @@ router.get('/:id', Policy(), verifyToken, CheckAuthorization, ManageRights, asyn
 
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     let data;
+    req.body.timesheet = {timesheet: req.body.timesheet};
     if(req.body.id === 0){
         data = await new groups().create(req.body);
     } else {
