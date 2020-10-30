@@ -51,7 +51,7 @@ module.exports = class groups {
         await new DataBase('groups').edit({
             id: data.group_id,
             teacher_id: data.id
-        }),
+        });
 
         let teacher = await teachers.get_info({id: answ.data.teacher_id});
         answ.teacher = {
