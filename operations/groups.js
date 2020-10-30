@@ -44,15 +44,18 @@ module.exports = class groups {
 
     static async teacher_add_to_group(data){
         let answ =  {
-            status:200, data: await new DataBase('groups').edit({
-                id: data.group_id,
-                teacher_id: data.id
-            }),
+            status:200,
             teacher: null
         };
 
+        await new DataBase('groups').edit({
+            id: data.group_id,
+            teacher_id: data.id
+        }),
+
         let teacher = await teachers.get_info({id: answ.data.teacher_id});
         answ.teacher = {
+            id: answ.data.teacher_id,
             name: teacher.data.name,
             surname: teacher.data.surname,
             lastname: teacher.data.lastname,
