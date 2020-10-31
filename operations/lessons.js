@@ -63,7 +63,7 @@ module.exports = class groups {
             data: (await this.get_info({id:Sdata.id})).data,
         };
 
-        let teacher = await new teachers.get_info({id:r_data.data.teacher_id});
+        let teacher = await teachers.get_info({id:r_data.data.teacher_id});
         if(teacher.status === 200){
             r_data.teacher = teacher.data;
         } else {
@@ -71,6 +71,7 @@ module.exports = class groups {
         }
         return r_data;
     }
+
     static async delete(data){
         let update_data = {
             id: data.id,
