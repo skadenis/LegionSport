@@ -1,7 +1,6 @@
 'use strict';
 let DataBase = require('../components/database/index');
 
-let teacher = require('./teacher');
 
 module.exports = class groups {
     constructor(){
@@ -24,8 +23,10 @@ module.exports = class groups {
 
     async get_info(data){
         let info = await new DataBase('lessons').getById(data.id);
+        let teachers = require('./teacher');
 
-        let teacher = await teacher.get_info({id: info.teacher_id});
+
+        let teacher = await teachers.get_info({id: info.teacher_id});
         if(teacher.status === 200){
             info.teacher = teacher.data;
         } else {
