@@ -113,13 +113,14 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                 let data = await childs.edit_child(req.body);
                 switch (data.status) {
                     case 200:
-                        console.log({id: id});
                         let data_info = await childs.get_child_info({id: id});
                         if(data_info.status === 200){
 
                             let payments = await cash_transfer.get_child_payments({id: id});
                             let groups_child = await groups.get_child_groups({id: id});
+                            let representative = await new representatives().get_child_representatives({child_id: id});
 
+                            data_info.data.representatives = representative.data;
                             data_info.data.payments = payments.data;
                             data_info.data.groups = groups_child.groups;
                         }
