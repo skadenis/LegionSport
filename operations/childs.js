@@ -16,11 +16,11 @@ module.exports = class childs {
     static async get_child_info(data){
         let childsA = await new DataBase('childs').getBy('id', data.id);
         if(childsA.length > 0){
-            if(childsA[0].description == null){
+            if(childsA[0].description){
                 childsA[0].description = '';
             }
 
-            if(childsA[0].email == null){
+            if(childsA[0].email){
                 childsA[0].email = '';
             }
 
