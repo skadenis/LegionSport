@@ -118,7 +118,22 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
     }
 
 });
+router.post('/update-password', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
+    switch (await new Schema(await RequestFormat.delete_child()).validate(req.body)) {
+        case true:
+            res.json({status: 200});
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
 
+});
 
 
 module.exports = router;
