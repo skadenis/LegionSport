@@ -17,9 +17,15 @@ module.exports = class childs {
         let childsA = await new DataBase('childs').getBy('id', data.id);
         if(childsA.length > 0){
 
-            childsA[0].description = childsA[0].description ?? "";
-            childsA[0].email = childsA[0].email ?? "";
-            childsA[0].phone = childsA[0].phone ?? "";
+
+            console.log(childsA);
+            console.log(childsA[0]);
+
+            console.log(!!childsA[0].phone);
+
+            childsA[0].description = (childsA[0].description) ?? "";
+            childsA[0].email = (childsA[0].email) ?? "";
+            childsA[0].phone = (childsA[0].phone) ?? "";
 
             return {
                 status: 200,
