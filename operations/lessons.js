@@ -29,9 +29,9 @@ module.exports = class groups {
         let teacher = await teachers.get_info({id: info.teacher_id});
         let r_teacher = {};
         if(teacher.status === 200){
-            r_teacher.teacher = teacher.data;
+            r_teacher = teacher.data;
         } else {
-            r_teacher.teacher=null;
+            r_teacher=null;
         }
 
 
