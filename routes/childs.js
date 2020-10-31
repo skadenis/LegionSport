@@ -119,9 +119,8 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
                             let payments = await cash_transfer.get_child_payments({id: id});
                             let groups_child = await groups.get_child_groups({id: id});
                             let representative = await new representatives().get_child_representatives({child_id: id});
-                            console.log(representative);
 
-                            data_info.data.representatives = representative.data;
+                            data_info.data.representatives = representative;
                             data_info.data.payments = payments.data;
                             data_info.data.groups = groups_child.groups;
                         }
