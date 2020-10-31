@@ -35,11 +35,11 @@ module.exports = class groups {
         }
 
 
-
+        let r_data = await new DataBase('lessons').getById(data.id);
+        r_data.teacher = r_teacher;
         return {
             status: 200,
-            data: await new DataBase('lessons').getById(data.id),
-            teacher: r_teacher.teacher
+            data: r_data
         }
     }
     async create(data){
