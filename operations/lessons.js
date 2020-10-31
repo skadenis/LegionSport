@@ -27,17 +27,19 @@ module.exports = class groups {
 
 
         let teacher = await teachers.get_info({id: info.teacher_id});
+        let r_teacher = {};
         if(teacher.status === 200){
-            info.teacher = teacher.data;
+            r_teacher.teacher = teacher.data;
         } else {
-            info.teacher=null;
+            r_teacher.teacher=null;
         }
 
 
 
         return {
             status: 200,
-            data: await new DataBase('lessons').getById(data.id)
+            data: await new DataBase('lessons').getById(data.id),
+            teacher: r_teacher.teacher
         }
     }
     async create(data){
@@ -54,6 +56,7 @@ module.exports = class groups {
     async edit(data){
         // data format
         // {id: 'int', name: 'string', description: 'string'}
+
         let Sdata = await new DataBase('lessons').edit(data);
         let r_data = {
             status: 200,
@@ -67,7 +70,6 @@ module.exports = class groups {
             r_data.teacher=null;
         }
         return r_data;
-
     }
     static async delete(data){
         let update_data = {
