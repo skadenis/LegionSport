@@ -1,7 +1,7 @@
 'use strict';
 let DataBase = require('../components/database/index');
 
-
+let teachers = require('./teacher');
 module.exports = class groups {
     constructor(){
     }
@@ -23,7 +23,7 @@ module.exports = class groups {
 
     async get_info(data){
         let info = await new DataBase('lessons').getById(data.id);
-        let teachers = require('./teacher');
+
 
 
         let teacher = await teachers.get_info({id: info.teacher_id});
@@ -55,10 +55,19 @@ module.exports = class groups {
         // data format
         // {id: 'int', name: 'string', description: 'string'}
         let Sdata = await new DataBase('lessons').edit(data);
-        return{
+        let r_data = {
             status: 200,
-            data: (await this.get_info({id:Sdata.id})).data
+            data: (await this.get_info({id:Sdata.id})).data,
         };
+
+        let teacher = await new teachers.get_info({id:r_data.data.teacher_id});
+        if(teacher.status === 200){
+            r_data.teacher = teacher.data;
+        } else {
+            r_data.teacher=null;
+        }
+        return r_data;
+
     }
     static async delete(data){
         let update_data = {
