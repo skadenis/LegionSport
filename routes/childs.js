@@ -81,7 +81,6 @@ router.post('/remove-from-group', Policy(), verifyToken, CheckAuthorization, Man
             break;
     }
 });
-
 router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.edit_child()).validate(req.body)) {
         case true:

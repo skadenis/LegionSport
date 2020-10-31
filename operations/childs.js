@@ -19,6 +19,15 @@ module.exports = class childs {
             if(childsA[0].description === null){
                 childsA[0].description = '';
             }
+
+            if(childsA[0].email === null){
+                childsA[0].email = '';
+            }
+
+            if(childsA[0].phone === null){
+                childsA[0].phone = '';
+            }
+
             return {
                 status: 200,
                 data: childsA[0]
