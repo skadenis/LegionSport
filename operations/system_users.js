@@ -34,6 +34,7 @@ class SystemUsers {
             if(data.password === user.password){
                 delete user.password;
                 user.rights = await rights(user.rights);
+                user.role = 'admin';
 
                 let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
                 return_data = {status: 200, info: user, role: 'admin', token: token};
