@@ -36,7 +36,7 @@ class SystemUsers {
                 user.rights = await rights(user.rights);
 
                 let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
-                return_data = {status: 200, info: user, token: token};
+                return_data = {status: 200, info: user, role: 'admin', token: token};
 
             }else{
                 return_data = {status: 401, description: 'have error in password'}

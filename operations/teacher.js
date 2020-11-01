@@ -64,7 +64,7 @@ module.exports = class teacher {
                 let user = auth_users[0];
 
                 let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
-                return {status: 200, info: user, token: token};
+                return {status: 200, info: user, role: 'teacher', token: token};
             } else {
                 return {
                     status: 401
