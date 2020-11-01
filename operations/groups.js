@@ -39,9 +39,6 @@ module.exports = class groups {
         }
     }
 
-
-
-
     static async teacher_add_to_group(data){
         let answ =  {
             status:200,

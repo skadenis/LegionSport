@@ -15,6 +15,8 @@ let systemRouter = require('./routes/system');
 let lessonsRouter = require('./routes/lessons');
 let season_ticketsRoute = require('./routes/season_tickets');
 let teacherRouter = require('./routes/teacher');
+let teacherInfoRouter = require('./routes/teacherInfo');
+
 
 let app = express();
 
@@ -45,6 +47,8 @@ app.use('/objects', objectsRouter);
 app.use('/teachers', teacherRouter);
 app.use('/cash-transfer', cashTransferRouter);
 app.use('/season_tickets', season_ticketsRoute);
+app.use('/teacher-info/', teacherInfoRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
