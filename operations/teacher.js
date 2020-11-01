@@ -61,7 +61,7 @@ module.exports = class teacher {
         if(auth_users.length > 0){
             let user_pass = (await new DataBase('teachers_has_password').getBy('teacher_id', data.login))[0]['password'];
             if (user_pass === data.password){
-                user = auth_users[0];
+                let user = auth_users[0];
 
                 let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
                 return {status: 200, info: user, token: token};
