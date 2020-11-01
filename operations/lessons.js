@@ -10,7 +10,7 @@ module.exports = class groups {
         return await new DataBase('').DB_query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2',[Number(data.id), false])
     }
     static async get_all_lessons_by_teacher_id(data){
-        return await new DataBase('').DB_query('SELECT * FROM lessons WHERE teacher_id = $1 and is_deleted = $2 and date_time > CURRENT_DATE - integer \'7\' and date_time < CURRENT_DATE + integer \'14\'',[Number(data.id), false])
+        return await new DataBase('').DB_query('SELECT lessons.date_time,lessons.id,lessons.name as l_name, groups.name as g_name, objects.name as o_name, programs.name as p_name FROM lessons JOIN groups ON groups.id= lessons.group_id JOIN objects on objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE lessons.teacher_id = $1 and lessons.is_deleted = $2 and date_time > CURRENT_DATE - integer \'7\' and date_time < CURRENT_DATE + integer \'14\'',[Number(data.id), false])
     }
 
     static async get_all(){
