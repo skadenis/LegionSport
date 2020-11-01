@@ -32,12 +32,11 @@ module.exports = class teacher {
 
     static async create(data){
         let newPer = await new DataBase('teachers').add(data);
-        // await new DataBase('child_has_login_info').add({
-        //     login: newChild.id,
-        //     password: 12312
-        // });
-        //
-        // await new cash_transfer().create_enterence_payment({id: newChild.id});
+        await new DataBase('teachers_has_password').add({
+            teacher_id: newPer.id,
+            password: '123123123'
+        });
+
         return {status:200, id:newPer.id, data:newPer};
     }
     static async edit(data){
