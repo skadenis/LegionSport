@@ -58,7 +58,7 @@ module.exports = class teacher {
         data.login = Number(data.login);
         let auth_users = await new DataBase('teachers').getBy('id', data.login);
 
-        if(auth_users > 0){
+        if(auth_users.length > 0){
             let user_pass = (await new DataBase('teachers_has_password').getBy('teacher_id', data.login))[0]['password'];
             if (user_pass === data.password){
                 user = auth_users[0];
