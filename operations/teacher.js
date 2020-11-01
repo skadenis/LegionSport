@@ -55,6 +55,7 @@ module.exports = class teacher {
     }
 
     async auth(data){
+        data.login = Number(data.login);
         let auth_users = await new DataBase('teachers').getBy('id', data.login);
 
         if(auth_users > 0){
