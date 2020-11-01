@@ -1,5 +1,8 @@
 'use strict';
 let DataBase = require('../components/database/index');
+let config = require('../components/config/index');
+let jwt = require('jsonwebtoken');
+
 
 module.exports = class teacher {
 
@@ -50,6 +53,29 @@ module.exports = class teacher {
         };
         await new DataBase('teachers').edit(update_data);
         return {status: 200};
+    }
+
+    async auth(data){
+        let auth_users = await new DataBase('teachers').getBy('id', data.login);
+
+        if(auth_users > 0){
+            let user_pass = (await new DataBase('teachers_has_password').getBy('teacher_id', data.login))[0]['password'];
+            if (user_pass === data.password){
+                user = auth_users[0];
+
+                let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
+                return {status: 200, info: user, token: token};
+            } else {
+                return {
+                    status: 401
+                }
+            }
+        }else{
+            return {
+                status: 404
+            }
+        }
+
     }
 };
 
