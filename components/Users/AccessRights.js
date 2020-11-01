@@ -9,8 +9,11 @@ class AccessRights extends User{
     }
 
     async CheckRights(ReqRights) {
-
-        return this.user_info.rights[ReqRights];
+        if (this.user_info.role === 'teacher'){
+            return true;
+        } else {
+            return this.user_info.rights[ReqRights];
+        }
     }
 }
 
