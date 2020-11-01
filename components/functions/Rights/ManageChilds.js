@@ -2,7 +2,6 @@
 let AccessRights = require('../../Users/AccessRights');
 
 module.exports = async function CheckRights(req, res,next) {
-    if ()
     switch (await new AccessRights(req.token).CheckRights('edit_childs')) {
         case true:
             next();
