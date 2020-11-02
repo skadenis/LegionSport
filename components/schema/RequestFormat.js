@@ -18,6 +18,18 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
+    static async update_password(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
     static async create_system_user(){
         return {
             type: 'object',

@@ -4,7 +4,30 @@ let config = require('../components/config/index');
 let jwt = require('jsonwebtoken');
 
 
+let generate_password = require('../components/functions/generetePassword')
+
+
 module.exports = class teacher {
+
+    static async update_password(data){
+        let teachers = await new DataBase('teachers').DB_query('SELECT * FROM teachers WHERE id = $1 and is_deleted = $2',[data.id, false]);
+        if(teachers.length > 0){
+            let teacher = teachers[0];
+
+            let password = await generate_password(7);
+            await new DataBase('teachers_has_password').update({
+                teacher_id: teacher.id,
+                password: password
+            });
+
+            await this.send_auth_data(teacher.id, password);
+            return {status: 200};
+
+        }else {
+            return {status: 404};
+        }
+
+    }
 
     static async get_all(){
 
@@ -30,12 +53,20 @@ module.exports = class teacher {
 
     }
 
+    static async send_auth_data(login, password){
+
+    }
+
     static async create(data){
         let newPer = await new DataBase('teachers').add(data);
+
+        let password = await generate_password(7);
         await new DataBase('teachers_has_password').add({
             teacher_id: newPer.id,
-            password: '123123123'
+            password: password
         });
+
+        await this.send_auth_data(newPer.id, password);
 
         return {status:200, id:newPer.id, data:newPer};
     }
