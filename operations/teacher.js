@@ -26,7 +26,6 @@ module.exports = class teacher {
         }else {
             return {status: 404};
         }
-
     }
     static async get_all(){
 
@@ -67,9 +66,9 @@ module.exports = class teacher {
             }
         });
         let message = {
-            from: '<skadenis@mail.ru>',
+            from: '<'+config.mail.email+'>',
             to: email+' <'+email+'>',
-            subject: 'Данные для доступа в панель администратора',
+            subject: 'Данные для доступа в панель преподователя',
             html:'' +
                 '<p>Ниже мы отправляем вам информацию для доступа в систему</p>' +
                 '<p>Постарайтесь предотвратить доступ посторонних людей к этой информации.</p>' +

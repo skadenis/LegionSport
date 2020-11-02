@@ -3,6 +3,7 @@ let DataBase = require('../components/database/index');
 let rights = require('./rights');
 let generate_password = require('../components/functions/generetePassword')
 
+let nodemailer = require('nodemailer');
 let config = require('../components/config/index');
 let jwt = require('jsonwebtoken');
 
@@ -70,7 +71,41 @@ class SystemUsers {
         }
     }
     async send_auth_data(login, password, email){
-        console.log(login,password,email);
+
+        let transport = await nodemailer.createTransport({
+            pool: true,
+            host: config.mail.host,
+            port: config.mail.port,
+            secure: config.mail.secure, // use TLS
+            auth: {
+                user: config.mail.auth.user,
+                pass: config.mail.auth.pass
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        let message = {
+            from: '<'+config.mail.email+'>',
+            to: email+' <'+email+'>',
+            subject: 'Данные для доступа в панель администратора',
+            html:'' +
+                '<p>Ниже мы отправляем вам информацию для доступа в систему</p>' +
+                '<p>Постарайтесь предотвратить доступ посторонних людей к этой информации.</p>' +
+                '<p><b>Ваш логин:</b> '+login+'</p>'+
+                '<p><b>Ваш пароль:</b> '+pass+'</p>' +
+                '<p>Приятной вам работы!</p>' +
+                '<p><i>С уважением,</br>' +
+                'отдел по работе с персооналом ООО «Новые Образовательные Технологии»</i></p>'
+        };
+        await transport.sendMail(message, function(error){
+            if(error){
+                console.log('Error occurred');
+                console.log(error.message);
+            }else {
+                transport.close();
+            }
+        });
     }
     async edit_system_user(data){
         // data format
@@ -130,6 +165,24 @@ class SystemUsers {
        }
 
 
+    }
+    async update_password(data){
+        let users = await new DataBase('system_users').DB_query('SELECT * FROM system_users WHERE id = $1 and is_deleted = $2',[data.id, false]);
+        if(users.length > 0){
+            let user = users[0];
+
+            let password = await generate_password(7);
+            await new DataBase('system_users').update({
+                id: user.id,
+                password: password
+            });
+
+            await this.send_auth_data(user.id, password, user.email);
+            return {status: 200};
+
+        }else {
+            return {status: 404};
+        }
     }
 }
 

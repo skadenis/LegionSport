@@ -20,6 +20,7 @@ module.exports = {
         schema: ''
     },
     mail:{
+        email:'',
         host: 'smtp.mail.ru',
         port: 587,
         secure: false, // use TLS
