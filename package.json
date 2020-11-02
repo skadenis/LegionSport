@@ -16,6 +16,7 @@
     "jsonwebtoken": "^8.5.1",
     "machinepack-jwt": "^0.1.14",
     "morgan": "~1.9.1",
+    "nodemailer": "^6.4.14",
     "pg": "^8.0.3",
     "pg-format": "^1.0.4",
     "pug": "2.0.0-beta11",

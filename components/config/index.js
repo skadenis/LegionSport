@@ -19,4 +19,13 @@ module.exports = {
         expires: 2880, //in minutes(two days)
         schema: ''
     },
+    mail:{
+        host: 'smtp.mail.ru',
+        port: 587,
+        secure: false, // use TLS
+        auth: {
+            user: '',
+            pass: ''
+        }
+    },
 };

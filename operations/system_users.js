@@ -1,6 +1,7 @@
 'use strict';
 let DataBase = require('../components/database/index');
 let rights = require('./rights');
+let generate_password = require('../components/functions/generetePassword')
 
 let config = require('../components/config/index');
 let jwt = require('jsonwebtoken');
@@ -49,14 +50,14 @@ class SystemUsers {
         return return_data;
     }
     async create_system_user(data){
-        // data format
-        // {login: 'string', password: 'string', rights: 'int', name: 'string', surnanme: 'string', lastname: 'string', email: 'string' }
         let system_users = await new DataBase('system_users').getBy('login',data.login);
 
-        console.log(data);
+        data.login = data.id;
+        data.password = await generate_password(7);
 
         if(system_users.length === 0){
             let answ = await new DataBase('system_users').add(data);
+            await this.send_auth_data(data.login, data.password, data.email)
             return{
                 status: 200,
                 data: answ
@@ -67,8 +68,9 @@ class SystemUsers {
                 description: 'login is not free'
             }
         }
-
-
+    }
+    async send_auth_data(login, password, email){
+        console.log(login,password,email);
     }
     async edit_system_user(data){
         // data format
@@ -79,6 +81,7 @@ class SystemUsers {
             if(system_user.login !== data.login){
                 let system_user_logins = await new DataBase('system_users').getBy('login', data.login);
                 if (system_user_logins.length === 0){
+                    delete data.password;
                     return {
                         status: 200,
                         data: await new DataBase('system_users').edit(data)

@@ -2,7 +2,7 @@
 let DataBase = require('../components/database/index');
 let config = require('../components/config/index');
 let jwt = require('jsonwebtoken');
-
+let nodemailer = require('nodemailer');
 
 let generate_password = require('../components/functions/generetePassword')
 
@@ -20,7 +20,7 @@ module.exports = class teacher {
                 password: password
             });
 
-            await this.send_auth_data(teacher.id, password);
+            await this.send_auth_data(teacher.id, password, teacher.email);
             return {status: 200};
 
         }else {
@@ -28,7 +28,6 @@ module.exports = class teacher {
         }
 
     }
-
     static async get_all(){
 
         return {
@@ -52,11 +51,43 @@ module.exports = class teacher {
         }
 
     }
+    static async send_auth_data(login, password, email){
 
-    static async send_auth_data(login, password){
-
+        let transport = await nodemailer.createTransport({
+            pool: true,
+            host: config.mail.host,
+            port: config.mail.port,
+            secure: config.mail.secure, // use TLS
+            auth: {
+                user: config.mail.auth.user,
+                pass: config.mail.auth.pass
+            },
+            tls: {
+                rejectUnauthorized: false
+            }
+        });
+        let message = {
+            from: '<skadenis@mail.ru>',
+            to: email+' <'+email+'>',
+            subject: 'Данные для доступа в панель администратора',
+            html:'' +
+                '<p>Ниже мы отправляем вам информацию для доступа в систему</p>' +
+                '<p>Постарайтесь предотвратить доступ посторонних людей к этой информации.</p>' +
+                '<p><b>Ваш логин:</b> '+login+'</p>'+
+                '<p><b>Ваш пароль:</b> '+pass+'</p>' +
+                '<p>Приятной вам работы!</p>' +
+                '<p><i>С уважением,</br>' +
+                'отдел по работе с персооналом ООО «Новые Образовательные Технологии»</i></p>'
+        };
+        await transport.sendMail(message, function(error){
+            if(error){
+                console.log('Error occurred');
+                console.log(error.message);
+            }else {
+                transport.close();
+            }
+        });
     }
-
     static async create(data){
         let newPer = await new DataBase('teachers').add(data);
 
@@ -66,7 +97,7 @@ module.exports = class teacher {
             password: password
         });
 
-        await this.send_auth_data(newPer.id, password);
+        await this.send_auth_data(newPer.id, password, newPer.email);
 
         return {status:200, id:newPer.id, data:newPer};
     }
@@ -84,7 +115,6 @@ module.exports = class teacher {
         await new DataBase('teachers').edit(update_data);
         return {status: 200};
     }
-
     async auth(data){
         data.login = Number(data.login);
         let auth_users = await new DataBase('teachers').getBy('id', data.login);
