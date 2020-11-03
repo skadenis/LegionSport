@@ -53,11 +53,11 @@ class SystemUsers {
     async create_system_user(data){
         let system_users = await new DataBase('system_users').getBy('login',data.login);
 
-        data.login = data.id;
         data.password = await generate_password(7);
 
         if(system_users.length === 0){
             let answ = await new DataBase('system_users').add(data);
+
             await this.send_auth_data(data.login, data.password, data.email)
             return{
                 status: 200,
@@ -96,7 +96,7 @@ class SystemUsers {
                 '<p><b>Ваш пароль:</b> '+password+'</p>' +
                 '<p>Приятной вам работы!</p>' +
                 '<p><i>С уважением,</br>' +
-                'отдел по работе с персооналом ООО «Новые Образовательные Технологии»</i></p>'
+                'отдел по работе с персоналом ООО «Новые Образовательные Технологии»</i></p>'
         };
         await transport.sendMail(message, function(error){
             if(error){
