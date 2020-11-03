@@ -173,7 +173,7 @@ class SystemUsers {
 
             let password = await generate_password(7);
             await new DataBase('system_users').update({
-                id: user.id,
+                id: user.login,
                 password: password
             });
 
