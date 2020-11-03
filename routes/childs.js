@@ -100,6 +100,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 
                             data_info.data.payments = payments.data;
                             data_info.data.groups = groups_child.groups;
+                            data_info.data.representatives = [];
                         }
 
                         res.json(data_info).status(data_info.status);

@@ -104,7 +104,7 @@ module.exports = class childs {
             }
         });
         let message = {
-            from: '<'+config.mail.email+'>',
+            from: config.mail.email+' <'+config.mail.email+'>',
             to: email+' <'+email+'>',
             subject: 'Данные для доступа студента',
             html:'' +
@@ -116,6 +116,8 @@ module.exports = class childs {
                 '<p><i>С уважением,</br>' +
                 'ООО «Новые Образовательные Технологии»</i></p>'
         };
+
+        console.log(message);
         await transport.sendMail(message, function(error){
             if(error){
                 console.log('Error occurred');
