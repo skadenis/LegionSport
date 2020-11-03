@@ -4,6 +4,7 @@ let cash_transfer = require('./cash_transfer');
 
 let generate_password = require('../components/functions/generetePassword')
 let nodemailer = require('nodemailer');
+let config = require('../components/config/index');
 
 module.exports = class childs {
 
