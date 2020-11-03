@@ -177,7 +177,7 @@ class SystemUsers {
                 password: password
             });
 
-            await this.send_auth_data(user.id, password, user.email);
+            await this.send_auth_data(user.login, password, user.email);
             return {status: 200};
 
         }else {
