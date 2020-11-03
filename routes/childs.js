@@ -88,7 +88,7 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 
             if(req.body.id === 0){
                 delete req.body.id;
-                let data = await childs.create_child(req.body);
+                let data = await new childs().create_child(req.body);
                 id = data.id;
                 switch (data.status) {
                     case 200:
@@ -118,9 +118,8 @@ router.post('/edit', Policy(), verifyToken, CheckAuthorization, ManageRights, as
 
                             let payments = await cash_transfer.get_child_payments({id: id});
                             let groups_child = await groups.get_child_groups({id: id});
-                            let representative = await new representatives().get_child_representatives({child_id: id});
 
-                            data_info.data.representatives = representative;
+                            data_info.data.representatives =  await new representatives().get_child_representatives({child_id: id});
                             data_info.data.payments = payments.data;
                             data_info.data.groups = groups_child.groups;
                         }
@@ -164,9 +163,10 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 
 });
 router.post('/update-password', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    switch (await new Schema(await RequestFormat.delete_child()).validate(req.body)) {
+    switch (await new Schema(await RequestFormat.update_password()).validate(req.body)) {
         case true:
-            res.json({status: 200});
+            let data = await new childs().update_password(req.body)
+            res.json(data).status(data.status);
             break;
         case false:
             res.status(500);
@@ -179,8 +179,6 @@ router.post('/update-password', Policy(), verifyToken, CheckAuthorization, Manag
     }
 
 });
-
-
 router.post('/add_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.add_payment()).validate(req.body)) {
         case true:

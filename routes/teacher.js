@@ -139,7 +139,7 @@ router.post('/delete', Policy(), verifyToken, CheckAuthorization, ManageRights, 
 router.post('/update-password', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
     switch (await new Schema(await RequestFormat.update_password()).validate(req.body)) {
         case true:
-            let data = await new teacher.update_password(req.body);
+            let data = await teacher.update_password(req.body);
             res.json(data).status(data.status);
 
 
