@@ -19,11 +19,6 @@ async function PaymentForClass() {
             });
         });
 
-        console.log({
-            id: group.id,
-            status: true
-        });
-
         await new DataBase('lessons').edit({
            id: group.id,
            status: true
@@ -43,10 +38,10 @@ async function make_video_links(){
         let link = await generate_link(lesson);
         console.log(link);
 
-        // await new DataBase('lessons').edit({
-        //     id: lesson.id,
-        //     link: link
-        // });
+        await new DataBase('lessons').edit({
+            id: lesson.id,
+            link: link
+        });
     });
 
 }
