@@ -31,10 +31,14 @@ async function make_video_links(){
     // Получение списка уроков которые начнуться через 5 минут //
     let lessons = await lessons_start_in_5_minutes();
 
-    await asyncForEach(lessons, async function (lesson){
-        let link = await generate_link(lesson);
+    console.log(lessons);
 
-        await new DataBase('lessons').update({
+    await asyncForEach(lessons, async function (lesson){
+        console.log(lesson);
+        let link = await generate_link(lesson);
+        console.log(link);
+
+        await new DataBase('lessons').edit({
             id: lesson.id,
             link: link
         });
