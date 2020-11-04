@@ -40,7 +40,7 @@ async function make_video_links(){
 
         await new DataBase('lessons').edit({
             id: lesson.id,
-            link: link
+            videolink: link
         });
     });
 
