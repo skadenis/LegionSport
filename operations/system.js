@@ -59,5 +59,4 @@ async function start() {
     await PaymentForClass();
     await make_video_links();
 };
-
 start();
