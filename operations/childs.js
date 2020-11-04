@@ -1,12 +1,38 @@
 'use strict';
 let DataBase = require('../components/database/index');
 let cash_transfer = require('./cash_transfer');
+let jwt = require('jsonwebtoken');
 
 let generate_password = require('../components/functions/generetePassword')
 let nodemailer = require('nodemailer');
 let config = require('../components/config/index');
 
 module.exports = class childs {
+
+    async auth(data){
+        data.login = Number(data.login);
+        let auth_users = await new DataBase('childs').getBy('id', data.login);
+
+        if(auth_users.length > 0){
+            let user_pass = (await new DataBase('child_has_login_info').getBy('login', data.login))[0]['password'];
+            if (user_pass === data.password){
+                let user = auth_users[0];
+                user.role = 'student';
+
+                let token = await jwt.sign(user, config.jwt.secretKey, { algorithm: config.jwt.algorithm });
+                return {status: 200, info: user, role: 'student', token: token};
+            } else {
+                return {
+                    status: 401
+                }
+            }
+        }else{
+            return {
+                status: 404
+            }
+        }
+
+    }
 
     static async get_all_childs(){
         return await new DataBase('childs').getBy('is_deleted', false);

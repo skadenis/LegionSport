@@ -19,6 +19,22 @@ let representatives = require('../operations/representatives');
 let representativesRouter = require('./representatives');
 router.use('/representatives', representativesRouter);
 
+router.post('/auth', Policy(), async function(req, res, next) {
+    switch (await new Schema(await RequestFormat.auth()).validate(req.body)) {
+        case true:
+            let data = await new childs().auth(req.body);
+            res.json(data);
+            break;
+        case false:
+            res.status(500);
+            res.json({error:"Server error"});
+            break;
+        default:
+            res.status(400);
+            res.json({error:"Unexpected data format"});
+            break;
+    }
+});
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await childs.get_all_childs();
     res.json(data);
