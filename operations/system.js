@@ -26,7 +26,38 @@ async function PaymentForClass() {
     });
 }
 
+async function make_video_links(){
 
-module.exports = async function () {
+    // Получение списка уроков которые начнуться через 5 минут //
+    let lessons = await lessons_start_in_5_minutes();
+
+    await asyncForEach(lessons, async function (lesson){
+        let link = await generate_link(lesson);
+
+        await new DataBase('lessons').update({
+            id: lesson.id,
+            link: link
+        });
+    });
+
+}
+
+async function generate_link(){
+    return 'https://tut.by/'
+}
+
+async function lessons_start_in_5_minutes(){
+    return await new DataBase('lessons').DB_query('SELECT * FROM lessons ' +
+        'WHERE lessons.is_deleted = $1 and date_time < CURRENT_DATE + (300 * interval \'1 second\') and videolink is null',[false]);
+}
+
+
+module.exports = start;
+
+
+async function start() {
     await PaymentForClass();
+    await make_video_links();
 };
+
+start();

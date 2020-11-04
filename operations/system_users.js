@@ -12,7 +12,6 @@ class SystemUsers {
     constructor(){
 
     }
-
     async get_all_users(){
         return await new DataBase('system_users').getBy('is_deleted', false,['id','name','surname','lastname','login','email','rights']);
     }
