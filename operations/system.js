@@ -20,12 +20,12 @@ async function PaymentForClass() {
         });
 
         console.log({
-            id: les_groups.id,
+            id: group.id,
             status: true
         });
 
         await new DataBase('lessons').edit({
-           id: les_groups.id,
+           id: group.id,
            status: true
        });
     });
