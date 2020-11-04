@@ -21,8 +21,7 @@ async function PaymentForClass() {
 
         console.log({
             id: les_groups.id,
-            status: true,
-            child: child
+            status: true
         });
 
         await new DataBase('lessons').edit({
