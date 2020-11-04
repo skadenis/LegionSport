@@ -52,7 +52,7 @@ async function generate_link(){
 
 async function lessons_start_in_5_minutes(){
     return await new DataBase('lessons').DB_query('SELECT * FROM lessons ' +
-        'WHERE lessons.is_deleted = $1 and date_time < CURRENT_DATE + (300 * interval \'1 second\') and videolink is null',[false]);
+        'WHERE lessons.is_deleted = $1 and date_time < now() + (300 * interval \'1 second\') + (3 * interval \'1 hour\') and videolink is null',[false]);
 }
 
 
