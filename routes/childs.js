@@ -47,6 +47,11 @@ router.get('/get-lessons', Policy(), verifyToken, CheckAuthorization, async func
     let data = await childs.get_child_client_lessons({id: req.user_info.id});
     res.json(data);
 });
+router.get('/get-active-bills', Policy(), verifyToken, CheckAuthorization, async function(req, res, next) {
+
+    let data = await childs.get_child_active_bills({id: req.user_info.id});
+    res.json(data);
+});
 
 
 

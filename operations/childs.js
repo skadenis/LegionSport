@@ -38,6 +38,13 @@ module.exports = class childs {
         return [];
     }
 
+    static async get_child_active_bills(data){
+        return {
+            status: 200,
+            data: await new DataBase('child_has_bills').DB_query('SELECT * FROM child_has_bills WHERE child_id = $1 and payed = $2 ', [data.id, false])
+        }
+    }
+
     static async get_all_childs(){
         return await new DataBase('childs').getBy('is_deleted', false);
     }
