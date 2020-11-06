@@ -35,7 +35,16 @@ module.exports = class childs {
     }
 
     static async get_child_client_lessons(data){
-        return [];
+        return {
+            status:200,
+            data: await new DataBase('lessons').DB_query('SELECT lessons.id, lessons.date_time, lessons.videolink, lessons.name, lessons.description, lessons.homework FROM lessons\n' +
+                ' JOIN groups g on lessons.group_id = g.id\n' +
+                ' JOIN child_has_groups chg on g.id = chg.group_id\n' +
+                ' WHERE\n' +
+                '    lessons.is_deleted = $1\n' +
+                '    and\n' +
+                '    chg.child_id = $2',[false, data.id])
+        };
     }
 
     static async get_child_active_bills(data){
