@@ -35,6 +35,12 @@ router.post('/auth', Policy(), async function(req, res, next) {
             break;
     }
 });
+router.get('/get-groups', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
+    console.log(req);
+
+    // let data = await groups.get_child_groups({id: req.params.id});
+    // res.json(data);
+});
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await childs.get_all_childs();
     res.json(data);

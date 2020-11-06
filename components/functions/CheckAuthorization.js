@@ -3,8 +3,10 @@
 let Authorization = require('../Users/Authorization');
 
 module.exports = async function CheckAuthorization(req, res, next) {
-    switch(await new Authorization().CheckAuthorization(req.token)) {
+    let data = await new Authorization().CheckAuthorization(req.token);
+    switch(data.status) {
         case true:
+            req.user_info = data.data;
             next();
             break;
         case false:

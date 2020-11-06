@@ -27,10 +27,15 @@ class Authorization extends User{
         }
 
         if(!this.error && this.user_info.iat + 24*60*60*1000 > Date.now() / 1000){
-            return true;
+            return {
+                status: true,
+                data: this.user_info
+            };
         }else {
             console.log(this.error);
-            return false
+            return {
+                status: false
+            };
         }
     }
 }
