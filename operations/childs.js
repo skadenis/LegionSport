@@ -44,23 +44,7 @@ module.exports = class childs {
             '    and\n' +
             '    chg.child_id = $2',[false, data.id]);
 
-        await asyncForEach(lessons, async function (lesson, key){
-            if(key > 2){
-                switch (key){
-                    case 0:
-                        delete lessons[key].videolink;
-                        break;
-                    case 1:
-                        delete lessons[key].homework;
-                        break;
-                    case 2:
-                        delete lessons[key].homework;
-                        break;
-                }
-            }else {
-                delete lessons[key].videolink;
-            }
-        });
+
 
         return {
             status:200,
