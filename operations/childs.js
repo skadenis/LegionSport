@@ -48,17 +48,17 @@ module.exports = class childs {
             if(key > 2){
                 switch (key){
                     case 0:
-                        lessons[key].show_button = 'homework';
+                        delete lessons[key].videolink;
                         break;
                     case 1:
-                        lessons[key].show_button = 'videolink';
+                        delete lessons[key].homework;
                         break;
                     case 2:
-                        lessons[key].show_button = 'videolink';
+                        delete lessons[key].homework;
                         break;
                 }
             }else {
-                lessons[key].show_button = 'homework';
+                delete lessons[key].videolink;
             }
         });
 
