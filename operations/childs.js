@@ -44,7 +44,9 @@ module.exports = class childs {
             '    and\n' +
             '    chg.child_id = $2',[false, data.id]);
 
-
+        await asyncForEach(lessons, async function (lesson, key){
+            lessons[key].homework = lesson.homework.data
+        });
 
         return {
             status:200,
