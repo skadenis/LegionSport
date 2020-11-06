@@ -34,6 +34,10 @@ module.exports = class childs {
 
     }
 
+    static async get_child_client_lessons(data){
+        return [];
+    }
+
     static async get_all_childs(){
         return await new DataBase('childs').getBy('is_deleted', false);
     }

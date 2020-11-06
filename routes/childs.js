@@ -19,6 +19,7 @@ let representatives = require('../operations/representatives');
 let representativesRouter = require('./representatives');
 router.use('/representatives', representativesRouter);
 
+// Запросы клиентской части
 router.post('/auth', Policy(), async function(req, res, next) {
     switch (await new Schema(await RequestFormat.auth()).validate(req.body)) {
         case true:
@@ -41,6 +42,14 @@ router.get('/get-groups', Policy(), verifyToken, CheckAuthorization, async funct
     let data = await groups.get_child_groups({id: req.user_info.id});
     res.json(data);
 });
+router.get('/get-lessons', Policy(), verifyToken, CheckAuthorization, async function(req, res, next) {
+
+    let data = await childs.get_child_client_lessons({id: req.user_info.id});
+    res.json(data);
+});
+
+
+
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await childs.get_all_childs();
     res.json(data);
