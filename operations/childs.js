@@ -41,7 +41,7 @@ module.exports = class childs {
     static async get_child_active_bills(data){
         return {
             status: 200,
-            data: await new DataBase('child_has_bills').DB_query('SELECT id, amount, description FROM child_has_bills WHERE child_id = $1 and payed = $2 ', [data.id, false])
+            data: await new DataBase('child_has_bills').DB_query('SELECT id, amount, description, date FROM child_has_bills WHERE child_id = $1 and payed = $2 ', [data.id, false])
         }
     }
 
