@@ -38,8 +38,8 @@ router.post('/auth', Policy(), async function(req, res, next) {
 router.get('/get-groups', Policy(), verifyToken, CheckAuthorization, async function(req, res, next) {
     console.log(req);
 
-    // let data = await groups.get_child_groups({id: req.params.id});
-    // res.json(data);
+    let data = await groups.get_child_groups({id: req.user_info.id});
+    res.json(data);
 });
 router.get('/all', Policy(), verifyToken, CheckAuthorization, WatchChilds, async function(req, res, next) {
     let data = await childs.get_all_childs();
