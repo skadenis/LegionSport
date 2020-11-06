@@ -14,4 +14,9 @@ router.get('/', Policy(), verifyToken, CheckAuthorization, async function(req, r
     res.json({status:200, data});
 });
 
+router.get('/child-token', Policy(), verifyToken, CheckAuthorization, async function(req, res, next) {
+    let data = jwt.verify(req.token, config.jwt.secretKey);
+    res.json({status:200, data});
+});
+
 module.exports = router;
