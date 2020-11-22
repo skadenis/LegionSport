@@ -49,7 +49,7 @@ async function generate_lessons_next_mounth(){
         await asyncForEach(lessons_dates, async function (date, key_date){
             await new lessons().create({
                 group_id: group.id,
-                date_time: date,
+                date_time: date.date,
                 name: 'Урок - '+group.id,
                 description: '',
                 files: {data:[]},
