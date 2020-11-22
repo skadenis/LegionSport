@@ -93,17 +93,21 @@ async function check_is_available_day(day, timesheet){
     let result = false;
     let time = '';
 
-    await asyncForEach(timesheet, async function (date){
-        if(day === date.day){
-            result = true;
-            time = date.time
-        }
-    })
+    if(timesheet.length > 0){
+        await asyncForEach(timesheet, async function (date){
+            if(day === date.day){
+                result = true;
+                time = date.time
+            }
+        })
 
+
+    }
     return {
         result,
         time
     };
+
 }
 
 function treatAsUTC(date) {
