@@ -71,6 +71,10 @@ async function get_mounth_dates_by_timesheet(start_date, finish_date, timesheet)
 
     for (let i = 0; i < date_count; i++) {
         let date = new Date(start_date);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        date.setMilliseconds(0);
         date.setDate(date.getDate() + i);
         let day = (date.getDay());
 
