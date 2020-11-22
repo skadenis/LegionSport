@@ -44,6 +44,7 @@ async function generate_lessons_next_mounth(){
     finish_date.setMonth(finish_date.getMonth()+1);
 
     await asyncForEach(all__groups, async function (group, key){
+        console.log(group);
         let lessons_dates = await get_mounth_dates_by_timesheet(start_date, finish_date, group.timesheet.data);
         console.log(lessons_dates);
         await asyncForEach(lessons_dates, async function (date, key_date){
@@ -101,9 +102,9 @@ async function check_is_available_day(day, timesheet){
                 time = date.time
             }
         })
-
-
     }
+
+
     return {
         result,
         time
