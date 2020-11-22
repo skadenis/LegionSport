@@ -45,7 +45,7 @@ async function generate_lessons_next_mounth(){
 
     await asyncForEach(all__groups, async function (group, key){
         let lessons_dates = await get_mounth_dates_by_timesheet(start_date, finish_date, group.timesheet.data);
-
+        console.log(lessons_dates);
         await asyncForEach(lessons_dates, async function (date, key_date){
             await new lessons().create({
                 group_id: group.id,
@@ -86,7 +86,6 @@ async function get_mounth_dates_by_timesheet(start_date, finish_date, timesheet)
         }
     }
 
-    console.log(results);
     return results;
 }
 
