@@ -67,6 +67,8 @@ async function get_mounth_dates_by_timesheet(start_date, finish_date, timesheet)
     let date_count = datediff(start_date, finish_date);
     let results = [];
 
+    console.log(timesheet);
+
     for (let i = 0; i < date_count; i++) {
         let date = new Date(start_date);
         date.setDate(date.getDate() + i);
