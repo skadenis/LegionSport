@@ -80,6 +80,9 @@ async function get_mounth_dates_by_timesheet(start_date, finish_date, timesheet)
             // Время проведения урока
             // check_is_available.time;
             let time = (check_is_available.time).split(':');
+
+            console.log('time:'+time);
+            console.log('date:'+date)
             date.setMinutes(date.getMinutes()+(Number(time[0])*60)+Number(time[1]));
 
             results.push({
