@@ -5,7 +5,7 @@ let cash_transfer = require('./cash_transfer');
 module.exports = class season_tickets {
 
     static async get_all(){
-        return await new DataBase('season_tickets').DB_query('SELECT * FROM season_tickets ORDER BY prichoe ASC')
+        return await new DataBase('season_tickets').DB_query('SELECT * FROM season_tickets WHERE is_deleted = false ORDER BY name ASC ')
     }
     static async get_all_childs_on_obj(data){
         return await new DataBase('childs').DB_query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id WHERE groups.object_id = $1 and childs.is_deleted = $2', [data.object, false]);
