@@ -20,13 +20,13 @@ module.exports = {
         schema: ''
     },
     mail:{
-        email:'hr@foodtech.by',
-        host: 'mail.foodtech.by',
-        port: 587,
+        email:'online_academy_1@yahoo.com',
+        host: 'smtp.mail.yahoo.com',
+        port: 465,
         secure: false, // use TLS
         auth: {
-            user: "hr@foodtech.by",
-            pass: "ULd3uN3PY2Y"
+            user: "online_academy_1@yahoo.com",
+            pass: "Des_01112020"
         }
     },
 };
