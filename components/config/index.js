@@ -21,7 +21,7 @@ module.exports = {
     },
     mail:{
         email:'no-reply@online-academy.by',
-        host: 'mail.online-academy.by',
+        host: 'smtp.yandex.ru',
         port: 465,
         secure: false, // use TLS
         auth: {
