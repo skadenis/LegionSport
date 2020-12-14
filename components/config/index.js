@@ -20,13 +20,13 @@ module.exports = {
         schema: ''
     },
     mail:{
-        email:'online_academy_1@yahoo.com',
-        host: 'imap.mail.yahoo.com',
-        port: 993,
+        email:'no-reply@online-academy.by',
+        host: 'mail.online-academy.by',
+        port: 465,
         secure: false, // use TLS
         auth: {
-            user: "online_academy_1@yahoo.com",
-            pass: "Des_01112020"
+            user: "no-reply@online-academy.by",
+            pass: "Tutanu2211"
         }
     },
 };
