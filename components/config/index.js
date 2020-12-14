@@ -20,11 +20,12 @@ module.exports = {
         schema: ''
     },
     mail:{
+        email:'no-reply@foodtech.by',
         host: 'mail.foodtech.by',
         port: 587,
         secure: false, // use TLS
         auth: {
-            user: "hr@foodtech.by",
+            user: "no-reply@foodtech.by",
             pass: "ULd3uN3PY2Y"
         }
     },
