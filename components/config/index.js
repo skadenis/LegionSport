@@ -21,8 +21,8 @@ module.exports = {
     },
     mail:{
         email:'online_academy_1@yahoo.com',
-        host: 'smtp.mail.yahoo.com',
-        port: 465,
+        host: 'imap.mail.yahoo.com',
+        port: 993,
         secure: false, // use TLS
         auth: {
             user: "online_academy_1@yahoo.com",
