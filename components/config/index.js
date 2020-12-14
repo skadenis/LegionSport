@@ -24,7 +24,7 @@ module.exports = {
         port: 587,
         secure: false, // use TLS
         auth: {
-            user: "no-reply@foodtech.by",
+            user: "hr@foodtech.by",
             pass: "ULd3uN3PY2Y"
         }
     },
