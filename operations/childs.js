@@ -74,6 +74,8 @@ module.exports = class childs {
         let childsA = await new DataBase('childs').getBy('id', data.id);
         if(childsA.length > 0){
 
+            childsA[0].password = await new DataBase('child_has_login_info').getBy('id', data.id)['password'];
+
             childsA[0].description = childsA[0].description ? childsA[0].description : "";
             childsA[0].email = childsA[0].email ? childsA[0].email : "";
             childsA[0].phone = childsA[0].phone ? childsA[0].phone : "";
