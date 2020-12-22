@@ -2,16 +2,14 @@
 let DataBase = require('../components/database/index');
 
 let teachers = require('./teacher');
-module.exports = class groups {
+module.exports = class lessons {
     constructor(){
     }
 
     async get_all_lessons_by_group_id(data){
-        return (await this.get_all_by_group({
-            id: data.id
-        })).data;
-    }
 
+        return await lessons.get_all_by_group({id: data.id});
+    }
     static async get_all_lessons_by_teacher_id(data){
         return {
             status:200,
@@ -21,7 +19,7 @@ module.exports = class groups {
     static async get_all(){
         return await new DataBase('lessons').getBy('is_deleted', false);
     }
-    async get_all_by_group(data){
+    static async get_all_by_group(data){
         return {
             status: 200,
             data: await new DataBase('lessons').query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.id, false])
