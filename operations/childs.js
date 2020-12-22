@@ -42,7 +42,7 @@ module.exports = class childs {
             ' WHERE\n' +
             '    lessons.is_deleted = $1\n' +
             '    and\n' +
-            '    chg.child_id = $2',[false, data.id]);
+            '    chg.child_id = $2 ORDER BY lessons.date_time DESC',[false, data.id]);
 
         await asyncForEach(lessons, async function (lesson, key){
             lessons[key].homework = lesson.homework.data
