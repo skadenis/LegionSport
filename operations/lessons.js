@@ -8,7 +8,7 @@ module.exports = class lessons {
 
     async get_all_lessons_by_group_id(data){
 
-        return await lessons.get_all_by_group({id: data.id});
+        return ((await lessons.get_all_by_group({id: data.id})).data);
     }
     static async get_all_lessons_by_teacher_id(data){
         return {
