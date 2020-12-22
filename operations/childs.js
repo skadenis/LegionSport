@@ -48,7 +48,11 @@ module.exports = class childs {
 
         await asyncForEach(lessons, async function (lesson, key){
             lessons[key].homework = lesson.homework.data
+            if(lesson.date_time >= new Date().addHours(3) ){
+                lessons[key].homework.push('Домашнее задание отсутствует!')
+            }
         });
+
 
         return {
             status:200,
@@ -188,3 +192,7 @@ module.exports = class childs {
     }
 }
 
+Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+}
