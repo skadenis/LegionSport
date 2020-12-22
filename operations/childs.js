@@ -53,16 +53,14 @@ module.exports = class childs {
             data: lessons
         };
     }
-
     static async get_child_active_bills(data){
         return {
             status: 200,
             data: await new DataBase('child_has_bills').DB_query('SELECT id, amount, description, date FROM child_has_bills WHERE child_id = $1 and payed = $2 ', [data.id, false])
         }
     }
-
     static async get_all_childs(){
-        return await new DataBase('childs').getBy('is_deleted', false);
+        return await new DataBase('childs').DB_query('SELECT * FROM childs WHERE is_deleted = false ORDER BY childs.surname ASC');
     }
     static async get_all_childs_on_obj(data){
         return await new DataBase('childs').DB_query('SELECT childs.* FROM childs JOIN groups on childs.group_id = groups.id WHERE groups.object_id = $1 and childs.is_deleted = $2', [data.object, false]);
