@@ -42,6 +42,8 @@ module.exports = class childs {
             ' WHERE\n' +
             '    lessons.is_deleted = $1\n' +
             '    and\n' +
+            '     lessons.date_time < now() + interval \'4 day\' and lessons.date_time > now() - interval \'7 day\'' +
+            '    and\n' +
             '    chg.child_id = $2 ORDER BY lessons.date_time DESC',[false, data.id]);
 
         await asyncForEach(lessons, async function (lesson, key){
