@@ -7,8 +7,11 @@ module.exports = class groups {
     }
 
     async get_all_lessons_by_group_id(data){
-        return await new DataBase('').DB_query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2',[Number(data.id), false])
+        return (await this.get_all_by_group({
+            id: data.id
+        })).data;
     }
+
     static async get_all_lessons_by_teacher_id(data){
         return {
             status:200,
@@ -18,7 +21,7 @@ module.exports = class groups {
     static async get_all(){
         return await new DataBase('lessons').getBy('is_deleted', false);
     }
-    static async get_all_by_group(data){
+    async get_all_by_group(data){
         return {
             status: 200,
             data: await new DataBase('lessons').query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.id, false])

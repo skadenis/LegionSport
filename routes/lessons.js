@@ -14,7 +14,7 @@ router.get('/all',  Policy(), verifyToken, CheckAuthorization, ManageRights, asy
 });
 
 router.post('/get-all-by-group', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    let data = await lessons.get_all_by_group({group_id: req.body.group});
+    let data = await new lessons().get_all_by_group({group_id: req.body.group});
     res.json(data);
 });
 
