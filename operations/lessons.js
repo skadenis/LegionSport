@@ -22,7 +22,7 @@ module.exports = class lessons {
     static async get_all_by_group(data){
         return {
             status: 200,
-            data: await new DataBase('lessons').query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.id, false])
+            data: await new DataBase('lessons').DB_query('SELECT * FROM lessons WHERE group_id = $1 and is_deleted = $2 ORDER BY date_time DESC', [data.id, false])
         };
     }
     async get_info(data){
