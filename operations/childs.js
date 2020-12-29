@@ -55,7 +55,7 @@ module.exports = class childs {
             //
             // console.log(new Date(lesson.date_time));
             // console.log(new Date().addHours(3+1) );
-            console.log(new Date(lesson.date_time).addHours(3) < new Date().addHours(3+1) );
+            // console.log(new Date(lesson.date_time).addHours(3) < new Date().addHours(3+1) );
             let start_lesson_time = new Date(lesson.date_time).addHours(3);
             let stop_show_videolink_time = new Date().addHours(3+1);
 
