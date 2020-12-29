@@ -47,7 +47,9 @@ module.exports = class childs {
             '    chg.child_id = $2 ORDER BY lessons.date_time DESC',[false, data.id]);
 
         await asyncForEach(lessons, async function (lesson, key){
-            lessons[key].homework = lesson.homework.data
+            lessons[key].homework = lesson.homework.data;
+
+            console.log('key:'+key);
 
             console.log('                           ')
 
@@ -61,9 +63,11 @@ module.exports = class childs {
 
             if(show_videolink){
                 console.log(true);
+                console.log('key:'+key);
                 lessons[key].homework.push('Домашнее задание отсутствует!')
             }else {
                 console.log(false);
+                console.log('key:'+key);
                 lessons[key].homework = [];
             }
         });
