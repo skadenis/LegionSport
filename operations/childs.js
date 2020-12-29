@@ -55,7 +55,7 @@ module.exports = class childs {
             console.log(new Date().addHours(3) );
 
 
-            if(new Date(lesson.date_time) <= new Date().addHours(3) ){
+            if(new Date(lesson.date_time) >= new Date().addHours(3) ){
                 lessons[key].homework.push('Домашнее задание отсутствует!')
             }
         });
