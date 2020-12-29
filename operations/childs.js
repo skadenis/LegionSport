@@ -64,6 +64,9 @@ module.exports = class childs {
             console.log(stop_show_videolink_time);
             stop_show_videolink_time = new Date(stop_show_videolink_time).getTime();
 
+            console.log(start_lesson_time);
+            console.log(stop_show_videolink_time);
+
             let show_videolink = start_lesson_time < stop_show_videolink_time;
 
             console.log(show_videolink);
