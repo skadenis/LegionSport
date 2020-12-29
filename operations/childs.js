@@ -61,6 +61,7 @@ module.exports = class childs {
                 lessons[key].homework = [];
             }
         });
+         console.log(lessons);
 
 
         return {
