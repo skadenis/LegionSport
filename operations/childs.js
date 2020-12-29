@@ -42,7 +42,7 @@ module.exports = class childs {
             ' WHERE\n' +
             '    lessons.is_deleted = $1\n' +
             '    and\n' +
-            '     lessons.date_time < now() + interval \'4 day\' and lessons.date_time > now() - interval \'7 day\'' +
+            '     lessons.date_time < now() + interval \'4 day\' and lessons.date_time > now() - interval \'1 day\'' +
             '    and\n' +
             '    chg.child_id = $2 ORDER BY lessons.date_time DESC',[false, data.id]);
 
@@ -51,7 +51,7 @@ module.exports = class childs {
 
             // console.log('key:'+key);
 
-            // console.log('                           ')
+            // console.log('-----------------------')
             //
             // console.log(new Date(lesson.date_time));
             // console.log(new Date().addHours(3+1) );
@@ -67,7 +67,7 @@ module.exports = class childs {
             console.log(start_lesson_time);
             console.log(stop_show_videolink_time);
 
-            let show_videolink = start_lesson_time < stop_show_videolink_time;
+            let show_videolink = false;
 
             console.log(show_videolink);
 
