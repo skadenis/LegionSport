@@ -49,13 +49,13 @@ module.exports = class childs {
         await asyncForEach(lessons, async function (lesson, key){
             lessons[key].homework = lesson.homework.data;
 
-            console.log('key:'+key);
+            // console.log('key:'+key);
 
-            console.log('                           ')
-
-            console.log(new Date(lesson.date_time));
-            console.log(new Date().addHours(3+1) );
-            console.log(new Date(lesson.date_time).addHours(3+1) < new Date().addHours(3+1) );
+            // console.log('                           ')
+            //
+            // console.log(new Date(lesson.date_time));
+            // console.log(new Date().addHours(3+1) );
+            console.log(new Date(lesson.date_time).addHours(3) < new Date().addHours(3+1) );
             let start_lesson_time = new Date(lesson.date_time).addHours(3);
             let stop_show_videolink_time = new Date().addHours(3+1);
 
