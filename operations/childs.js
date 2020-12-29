@@ -63,7 +63,7 @@ module.exports = class childs {
                 console.log(true);
                 lessons[key].homework.push('Домашнее задание отсутствует!')
             }else {
-                console.log(true);
+                console.log(false);
                 lessons[key].homework = [];
             }
         });
