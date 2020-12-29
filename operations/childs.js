@@ -54,8 +54,12 @@ module.exports = class childs {
             console.log(new Date(lesson.date_time));
             console.log(new Date().addHours(3+1) );
             console.log(new Date(lesson.date_time).addHours(3+1) < new Date().addHours(3+1) );
+            let start_lesson_time = new Date(lesson.date_time).addHours(3);
+            let stop_show_videolink_time = new Date().addHours(3+1);
 
-            if(new Date(lesson.date_time).addHours(3) < new Date().addHours(3+1) ){
+            let show_videolink = start_lesson_time > stop_show_videolink_time;
+
+            if(show_videolink){
                 console.log(true);
                 lessons[key].homework.push('Домашнее задание отсутствует!')
             }else {
