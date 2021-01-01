@@ -10,7 +10,7 @@ let asyncForEach = require('../components/functions/asyncForEach');
 // Генирация счета на оплату урока который был посещен
 async function PaymentForClass() {
     console.log('PaymentForClass');
-    let query = 'SELECT lessons.id, groups.id as g_id, groups.name as g_name, objects.name as o_name, programs.name as p_name, season_tickets.price FROM lessons JOIN groups ON groups.id = lessons.group_id JOIN objects ON groups.object_id = objects.ID join programs ON programs.id = objects.program_id JOIN season_tickets on groups.ticket_id = season_tickets.id WHERE date_time < now() and status != true';
+    let query = 'SELECT lessons.id, lessons.date_time as l_date_time, groups.id as g_id, groups.name as g_name, objects.name as o_name, programs.name as p_name, season_tickets.price FROM lessons JOIN groups ON groups.id = lessons.group_id JOIN objects ON groups.object_id = objects.ID join programs ON programs.id = objects.program_id JOIN season_tickets on groups.ticket_id = season_tickets.id WHERE date_time < now() and status != true';
     let les_groups = await new DataBase().DB_query(query);
 
     await asyncForEach(les_groups, async function (group) {
@@ -20,7 +20,7 @@ async function PaymentForClass() {
             await cash_transfer.create_cash_transfer({
                 child_id: child.id,
                 sum: (-1) * group.price,
-                description: 'Оплата за занятие '+(new Date())+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
+                description: 'Оплата за занятие '+(new Date(group.l_date_time))+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
             });
         });
 
