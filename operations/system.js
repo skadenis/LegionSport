@@ -19,7 +19,7 @@ async function PaymentForClass() {
         await asyncForEach(childs, async function (child) {
             await cash_transfer.create_cash_transfer({
                 child_id: child.id,
-                sum: group.price,
+                sum: (-1) * group.price,
                 description: 'Оплата за занятие '+(new Date())+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
             });
         });
