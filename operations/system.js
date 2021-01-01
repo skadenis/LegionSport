@@ -9,6 +9,7 @@ let asyncForEach = require('../components/functions/asyncForEach');
 
 // Генирация счета на оплату урока который был посещен
 async function PaymentForClass() {
+    console.log('PaymentForClass');
     let query = 'SELECT lessons.id, groups.id as g_id, groups.name as g_name, objects.name as o_name, programs.name as p_name, season_tickets.price FROM lessons JOIN groups ON groups.id = lessons.group_id JOIN objects ON groups.object_id = objects.ID join programs ON programs.id = objects.program_id JOIN season_tickets on groups.ticket_id = season_tickets.id WHERE date_time < now() and status != true';
     let les_groups = await new DataBase().DB_query(query);
 
