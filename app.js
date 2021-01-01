@@ -4,6 +4,7 @@ let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let cors = require('cors');
+let system = require('./system');
 
 let indexRouter = require('./routes/index');
 let childsRouter = require('./routes/childs');
@@ -16,7 +17,6 @@ let lessonsRouter = require('./routes/lessons');
 let season_ticketsRoute = require('./routes/season_tickets');
 let teacherRouter = require('./routes/teacher');
 let teacherInfoRouter = require('./routes/teacherInfo');
-
 
 let app = express();
 
@@ -65,5 +65,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+system();
 
 module.exports = app;
