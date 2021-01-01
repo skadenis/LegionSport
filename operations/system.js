@@ -18,7 +18,7 @@ async function PaymentForClass() {
         await asyncForEach(childs, async function (child) {
             await cash_transfer.create_cash_transfer({
                 child_id: child.id,
-                sum: group.price,
+                sum: 0,
                 description: 'Оплата за занятие '+(new Date())+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
             });
         });
@@ -131,11 +131,8 @@ function datediff(startDate, endDate) {
 }
 
 
-// module.exports = start;
-
-
-
-// Частота исполнения различных функций //
-
-generate_lessons_next_mounth();
-
+module.exports = {
+    func_generate_lessons_next_mounth: generate_lessons_next_mounth,
+    func_payment_for_class: PaymentForClass,
+    func_generate_invoices: generate_invoices
+};
