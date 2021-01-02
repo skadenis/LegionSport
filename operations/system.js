@@ -20,7 +20,7 @@ async function PaymentForClass() {
             await cash_transfer.create_cash_transfer({
                 child_id: child.id,
                 sum: (-1) * group.price,
-                description: 'Оплата за занятие '+(new Date(group.l_date_time))+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
+                description: 'Оплата за занятие '+(new Date(group.l_date_time).yyyymmdd())+' в группе '+group.p_name+' - '+group.o_name+' - '+group.g_name
             });
         });
 
@@ -51,7 +51,7 @@ async function generate_lessons_next_mounth(){
             await new lessons().create({
                 group_id: group.id,
                 date_time: date.date,
-                name: 'Урок '+date.date,
+                name: 'Урок '+new Date(date.date).yyyymmdd(),
                 description: '',
                 files: {data:[]},
                 homework: {data:[]},
@@ -136,4 +136,14 @@ module.exports = {
     func_generate_lessons_next_mounth: generate_lessons_next_mounth,
     func_payment_for_class: PaymentForClass,
     func_generate_invoices: generate_invoices
+};
+
+Date.prototype.yyyymmdd = function() {
+    var mm = this.getMonth() + 1; // getMonth() is zero-based
+    var dd = this.getDate();
+
+    return [this.getFullYear(),
+        (mm>9 ? '' : '0') + mm,
+        (dd>9 ? '' : '0') + dd
+    ].join('');
 };
