@@ -21,7 +21,8 @@ router.get('/groups', Policy(), verifyToken, CheckAuthorization, async function(
     console.log(token_info);
 
     let data = await groups.get_teacher_groups({id: token_info.id});
-    res.json(data);
+    console.log(data);
+    res.json(data).status(200);
 });
 
 
@@ -31,7 +32,9 @@ router.get('/lessons', Policy(), verifyToken, CheckAuthorization, async function
     console.log(token_info);
 
     let data = await lessons.get_all_lessons_by_teacher_id({id: token_info.id});
-    res.json(data);
+
+    console.log(data);
+    res.json(data).status(200);
 });
 
 
