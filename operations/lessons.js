@@ -13,7 +13,12 @@ module.exports = class lessons {
     static async get_all_lessons_by_teacher_id(data){
         return {
             status:200,
-            data: await new DataBase('').DB_query('SELECT lessons.date_time,lessons.id,lessons.name as l_name, groups.name as g_name,groups.id as groupId,objects.id as objectId,programs.id as courseId, objects.name as o_name, programs.name as p_name FROM lessons JOIN groups ON groups.id= lessons.group_id JOIN objects on objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE lessons.teacher_id = $1 and lessons.is_deleted = $2 and date_time > CURRENT_DATE - integer \'7\' and date_time < CURRENT_DATE + integer \'14\' ORDER by lessons.date_time ASC',[Number(data.id), false])
+            data: await new DataBase('').DB_query('SELECT lessons.date_time,lessons.id,lessons.name as l_name, groups.name as g_name,groups.id as groupId,objects.id as objectId,programs.id as courseId, objects.name as o_name, programs.name as p_name FROM lessons JOIN groups ON groups.id= lessons.group_id JOIN objects on objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE lessons.teacher_id = $1 and lessons.is_deleted = $2 and date_time > CURRENT_DATE - integer \'7\' and date_time < CURRENT_DATE + integer \'7\' and \n' +
+                '      groups.is_deleted = false\n' +
+                '  and\n' +
+                '      programs.is_deleted = false\n' +
+                '  and\n' +
+                '      objects.is_deleted = false ORDER by lessons.date_time DESC',[Number(data.id), false])
         }
     }
     static async get_all(){
