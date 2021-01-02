@@ -51,7 +51,7 @@ async function generate_lessons_next_mounth(){
             await new lessons().create({
                 group_id: group.id,
                 date_time: date.date,
-                name: 'Урок - '+group.id,
+                name: 'Урок '+date.date,
                 description: '',
                 files: {data:[]},
                 homework: {data:[]},
