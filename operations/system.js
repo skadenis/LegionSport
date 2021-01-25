@@ -103,6 +103,8 @@ async function check_is_available_day(day, timesheet){
     let result = false;
     let time = '';
 
+    console.log(day, timesheet)
+
 
     if(timesheet && timesheet.length > 0){
         await asyncForEach(timesheet, async function (date){
