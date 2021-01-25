@@ -40,8 +40,8 @@ async function generate_lessons_next_mounth(){
     let all__groups = await groups.get_all();
     let start_date, finish_date;
 
-    start_date = new Date('2020-02-01');
-    finish_date = new Date('2020-02-01');
+    start_date = new Date('2021-02-01');
+    finish_date = new Date('2021-02-01');
     finish_date.setMonth(finish_date.getMonth()+1);
 
     await asyncForEach(all__groups, async function (group, key){
