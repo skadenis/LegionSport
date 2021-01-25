@@ -40,9 +40,9 @@ async function generate_lessons_next_mounth(){
     let all__groups = await groups.get_all();
     let start_date, finish_date;
 
-    start_date = new Date('2021-02-01');
-    finish_date = new Date('2021-02-01');
-    finish_date.setMonth(finish_date.getMonth()+1);
+    start_date = new Date('2021-01-01');
+    finish_date = new Date('2021-01-01');
+    // finish_date.setMonth(finish_date.getMonth()+1);
 
     await asyncForEach(all__groups, async function (group, key){
         let lessons_dates = await get_mounth_dates_by_timesheet(start_date, finish_date, group.timesheet.timesheet);
@@ -80,11 +80,16 @@ async function get_mounth_dates_by_timesheet(start_date, finish_date, timesheet)
         let day = (date.getDay());
 
 
+
         let check_is_available = await check_is_available_day(day, timesheet);
         if(check_is_available.result){
             // Время проведения урока
             // check_is_available.time;
             let time = (check_is_available.time).split(':');
+            console.log('\n\n\n');
+            console.log(time)
+            console.log('\n\n\n');
+
 
             console.log('time:'+time);
             console.log('date:'+date)
