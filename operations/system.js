@@ -152,5 +152,5 @@ Date.prototype.yyyymmdd = function() {
     return [(dd>9 ? '' : '0') + dd, (mm>9 ? '' : '0') + mm, this.getFullYear()].join('-');
 };
 
-generate_lessons_next_mounth();
+// generate_lessons_next_mounth();
 PaymentForClass();
