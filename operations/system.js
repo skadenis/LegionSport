@@ -153,3 +153,4 @@ Date.prototype.yyyymmdd = function() {
 };
 
 generate_lessons_next_mounth();
+PaymentForClass();
