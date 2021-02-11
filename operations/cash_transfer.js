@@ -20,7 +20,9 @@ module.exports = class cash_transfer{
         let r_data;
          switch (info_child.status) {
              case 200:
-                 r_data = {status: 200, data: await new DataBase('cash_transfer').getBy('child_id', data.id)};
+                 // await new DataBase('cash_transfer').getBy('child_id', data.id
+                 let cash_transfers = await new DataBase('cash_transfer').DB_query('SELECT * FROM cash_transfer WHERE child_id = $1 ORDER BY id DESC',[data.id]);
+                 r_data = {status: 200, data:cash_transfers };
                  break;
              case 404:
                  r_data = {status: 404, description: 'no child with such id'};
