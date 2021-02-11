@@ -3,6 +3,8 @@
 let sys = require('./operations/system');
 
 module.exports = function (){
+
+    console.log('SYSTEM STARTED!!!!');
     setInterval(async function (){
 
             await sys.func_payment_for_class()
