@@ -83,6 +83,11 @@ module.exports = class groups {
                 });
                 let groups = this.get_child_groups(data.id);
 
+                console.log({
+                    status: 200,
+                    groups
+                });
+
                 return {
                     status: 200,
                     groups
