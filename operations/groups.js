@@ -17,7 +17,7 @@ module.exports = class groups {
 
         switch (info_child.status) {
             case 200:
-                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, groups.timesheet as timesheet, groups.add_date as add_date, groups.delete_date as delete_date, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, groups.timesheet as timesheet, child_has_groups.add_date as add_date, child_has_groups.delete_date as delete_date, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
                 await asyncForEach(groups, function (group,key){
                     groups[key].timesheet = groups[key].timesheet.timesheet;
                 });
