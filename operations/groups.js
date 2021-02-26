@@ -16,7 +16,7 @@ module.exports = class groups {
 
         switch (info_child.status) {
             case 200:
-                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
+                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, groups.timesheet as timesheet,objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
                 r_data = {
                     status: 200,
