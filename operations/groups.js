@@ -81,8 +81,8 @@ module.exports = class groups {
                     add_date: data.lesson_start_date,
                     status: true
                 });
-                let groups = await this.get_child_groups(data.id);
-                
+                let groups = await this.get_child_groups({id:data.id});
+
                 return {
                     status: 200,
                     groups
