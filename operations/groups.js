@@ -77,7 +77,9 @@ module.exports = class groups {
             }else {
                 await new DataBase('child_has_groups').add({
                     child_id: data.id,
-                    group_id: data.group_id
+                    group_id: data.group_id,
+                    add_date: data.lesson_start_date,
+                    status: true
                 });
                 let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
@@ -98,7 +100,7 @@ module.exports = class groups {
     static async remove_from_group(data){
         let users = await new DataBase('childs').getBy('id', data.id);
         if(users.length > 0){
-            await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
+            // await new DataBase('child_has_groups').DB_query('DELETE FROM child_has_groups WHERE child_id = $1 and group_id = $2',[data.id,data.group_id]);
             let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
 
             return {
@@ -120,7 +122,6 @@ module.exports = class groups {
     }
     static async get_all_groups_on_obj(data){
 
-        console.log(data);
         return {
             status: 200,
             data: await new DataBase('groups').DB_query('SELECT * FROM groups WHERE object_id = $1 and is_deleted = $2', [data.object, false])

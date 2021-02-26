@@ -290,6 +290,10 @@ module.exports = class RequestFormat {
                 group_id: {
                     type: 'number',
                     required: true
+                },
+                lesson_start_date: {
+                    type: 'date',
+                    required: true
                 }
             },
             additionalProperties: false
