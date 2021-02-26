@@ -81,8 +81,7 @@ module.exports = class groups {
                     add_date: data.lesson_start_date,
                     status: true
                 });
-                let groups = await new DataBase('child_has_groups').DB_query('SELECT programs.id as program_id, objects.id as object_id,groups.id, groups.name as group_name, objects.name as object_name, programs.name as program_name FROM child_has_groups JOIN groups ON groups.id = child_has_groups.group_id JOIN objects ON objects.id = groups.object_id JOIN programs on programs.id = objects.program_id WHERE child_id = $1', [data.id]);
-
+                let groups = this.get_child_groups(data.id);
 
                 return {
                     status: 200,
