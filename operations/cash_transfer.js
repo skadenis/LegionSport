@@ -1,5 +1,6 @@
 'use strict';
 let DataBase = require('../components/database/index');
+let student = require('../operations/childs');
 
 module.exports = class cash_transfer{
     constructor(){
@@ -85,7 +86,7 @@ module.exports = class cash_transfer{
                     id: data.child_id,
                     wallet: newWallet
                 });
-                r_data = {status: 200, data: (await this.get_child_payments({id: data.child_id})).data};
+                r_data = {status: 200, data: (await this.get_child_payments({id: data.child_id})).data, student: await  student.get_child_info({id: data.child_id})};
                 break;
 
             default:
