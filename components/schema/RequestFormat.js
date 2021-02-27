@@ -230,6 +230,10 @@ module.exports = class RequestFormat {
                     type: 'string',
                     required: true
                 },
+                discount:{
+                    type: 'number',
+                    required: true
+                },
             },
             additionalProperties: false
         };
