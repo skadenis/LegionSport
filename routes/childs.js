@@ -254,7 +254,7 @@ router.post('/edit_payment', Policy(), verifyToken, CheckAuthorization, ManageRi
 });
 
 router.post('/delete_payment', Policy(), verifyToken, CheckAuthorization, ManageRights, async function(req, res, next) {
-    switch (await new Schema(await RequestFormat.edit_payment()).validate(req.body)) {
+    switch (await new Schema(await RequestFormat.delete_payment()).validate(req.body)) {
         case true:
 
             let data = await cash_transfer.delete_cash_transfer(req.body);

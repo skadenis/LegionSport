@@ -302,6 +302,22 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
+    static async delete_payment(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                child_id: {
+                    type: 'number',
+                    required: true
+                }
+            },
+            additionalProperties: false
+        };
+    }
     static async add_to_group(){
         return {
             type: 'object',
