@@ -5,6 +5,9 @@ module.exports = class cash_transfer{
     constructor(){
     }
 
+    static async get_payment_info(data){
+        return await new DataBase('cash_transfer').getById(data.id)
+    }
     async create_enterence_payment(data){
         // let enterence_sum = 19.90;
         // await this.create_cash_transfer({
@@ -45,6 +48,39 @@ module.exports = class cash_transfer{
             case 200:
                 await new DataBase('cash_transfer').add(data);
                 let newWallet = (info_child.data.wallet + data.sum);
+                await OperationWithChilds.edit_child({
+                    id: data.child_id,
+                    wallet: newWallet
+                });
+                r_data = {status: 200, data: (await this.get_child_payments({id: data.child_id})).data};
+                break;
+
+            default:
+                r_data = {status: 404};
+                break;
+        }
+
+        return r_data;
+
+    }
+    static async edit_cash_transfer(data){
+        // data format
+        // {child_id: 'int', sum: 'numeric', description: 'string'}
+
+        // Калькулируем данные в cash_transfer и обновляем данные в child info
+
+        let OperationWithChilds = require('../operations/childs');
+        let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
+
+        let r_data;
+
+        switch (info_child.status) {
+            case 200:
+
+                let before_edit__payment_info = await this.get_payment_info({id:data.id});
+
+                await new DataBase('cash_transfer').edit(data);
+                let newWallet = (info_child.data.wallet - before_edit__payment_info.sum + data.sum);
                 await OperationWithChilds.edit_child({
                     id: data.child_id,
                     wallet: newWallet

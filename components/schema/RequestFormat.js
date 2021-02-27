@@ -278,7 +278,30 @@ module.exports = class RequestFormat {
             additionalProperties: false
         };
     }
-
+    static async edit_payment(){
+        return {
+            type: 'object',
+            properties: {
+                id: {
+                    type: 'number',
+                    required: true
+                },
+                child_id: {
+                    type: 'number',
+                    required: true
+                },
+                sum: {
+                    type: 'number',
+                    required: true
+                },
+                description: {
+                    type: 'string',
+                    required: true
+                },
+            },
+            additionalProperties: false
+        };
+    }
     static async add_to_group(){
         return {
             type: 'object',
