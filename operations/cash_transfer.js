@@ -25,7 +25,7 @@ module.exports = class cash_transfer{
          switch (info_child.status) {
              case 200:
                  // await new DataBase('cash_transfer').getBy('child_id', data.id
-                 let cash_transfers = await new DataBase('cash_transfer').DB_query('SELECT * FROM cash_transfer WHERE child_id = $1 ORDER BY id DESC',[data.id]);
+                 let cash_transfers = await new DataBase('cash_transfer').DB_query('SELECT * FROM cash_transfer WHERE child_id = $1 and is_deleted = false ORDER BY id DESC',[data.id]);
                  r_data = {status: 200, data:cash_transfers };
                  break;
              case 404:
@@ -86,6 +86,41 @@ module.exports = class cash_transfer{
                     id: data.child_id,
                     wallet: newWallet
                 });
+                r_data = {status: 200, data: (await this.get_child_payments({id: data.child_id})).data, student: await  student.get_child_info({id: data.child_id})};
+                break;
+
+            default:
+                r_data = {status: 404};
+                break;
+        }
+
+        return r_data;
+
+    }
+    static async delete_cash_transfer(data){
+        // data format
+        // {child_id: 'int', sum: 'numeric', description: 'string'}
+
+        // Калькулируем данные в cash_transfer и обновляем данные в child info
+
+        let OperationWithChilds = require('../operations/childs');
+        let info_child = await OperationWithChilds.get_child_info({id: data.child_id});
+
+        let r_data;
+
+        switch (info_child.status) {
+            case 200:
+
+                let before_edit__payment_info = await this.get_payment_info({id:data.id});
+                data.is_deleted = true;
+                await new DataBase('cash_transfer').edit(data);
+                let newWallet = (info_child.data.wallet - before_edit__payment_info.sum);
+
+                await OperationWithChilds.edit_child({
+                    id: data.child_id,
+                    wallet: newWallet
+                });
+
                 r_data = {status: 200, data: (await this.get_child_payments({id: data.child_id})).data, student: await  student.get_child_info({id: data.child_id})};
                 break;
 
