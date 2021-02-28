@@ -144,7 +144,7 @@ module.exports = class childs {
 
         await this.send_auth_data(newChild.id, password, newChild.email);
 
-        await new cash_transfer().create_enterence_payment({id: newChild.id});
+        // await new cash_transfer().create_enterence_payment({id: newChild.id});
         return {status:200, id:newChild.id};
     }
     static async edit_child(data){
